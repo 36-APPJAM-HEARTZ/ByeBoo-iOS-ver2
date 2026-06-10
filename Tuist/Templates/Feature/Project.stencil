@@ -8,7 +8,7 @@ let project = Project.makeModule(
     targets: [.framework, .interface, .testing, .unitTest, .demo],
     internalDependencies: [
         .Project.Module.DomainInterface,
-        .Project.Module.Core
+        .Project.Module.Core,
         .Project.Module.DesignSystem
     ],
     externalDependencies: [
