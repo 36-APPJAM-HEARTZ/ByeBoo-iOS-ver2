@@ -62,7 +62,7 @@ tuist generate
    * Interface/: 타 모듈에 노출할 프로토콜 및 모델 폴더
    * Testing/: 테스트를 위한 Mock/Stub 폴더
    * Tests/: 유닛 테스트 폴더
-   * Demo/: 단독 실행을 위한 AppDelegate, SceneDelegate (아까 수정한 템플릿 적용됨)
+   * Demo/: 단독 실행을 위한 AppDelegate, SceneDelegate
    * Resources/: 이미지, 폰트 등 리소스 폴더
 
   3. 생성 후 필수 작업 (수동)
