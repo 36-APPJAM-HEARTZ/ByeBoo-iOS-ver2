@@ -1,0 +1,27 @@
+// swift-tools-version: 6.0
+import PackageDescription
+
+#if TUIST
+import struct ProjectDescription.PackageSettings
+
+let packageSettings = PackageSettings(
+    // Customize the product types for specific package product
+    // Default is .staticFramework
+    // productTypes: ["Alamofire": .framework,]
+    productTypes: [:]
+)
+#endif
+
+let package = Package(
+    name: "ByeBoo",
+    dependencies: [
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "11.0.0")),
+        .package(url: "https://github.com/kakao/kakao-ios-sdk.git", .upToNextMajor(from: "2.0.0")),
+        .package(url: "https://github.com/airbnb/lottie-ios.git", .upToNextMajor(from: "4.0.0")),
+        .package(url: "https://github.com/SnapKit/SnapKit.git", .upToNextMajor(from: "5.0.0")),
+        .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.0.0")),
+        .package(url: "https://github.com/mixpanel/mixpanel-swift.git", .upToNextMajor(from: "4.0.0")),
+        .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
+    ]
+)
