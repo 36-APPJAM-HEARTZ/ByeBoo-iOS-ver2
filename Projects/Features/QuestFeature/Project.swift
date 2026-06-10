@@ -7,7 +7,7 @@ let project = Project.makeModule(
     name: "QuestFeature",
     targets: [.framework, .interface, .testing, .unitTest, .demo],
     internalDependencies: [
-        .Project.Module.Domain,
+        .Project.Module.DomainInterface,
         .Project.Module.Core,
         .Project.Module.DesignSystem
     ],

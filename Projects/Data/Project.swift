@@ -6,7 +6,7 @@ let project = Project.makeModule(
     name: "Data",
     targets: [.framework],
     internalDependencies: [
-        .Project.Module.Domain,
+        .Project.Module.DomainInterface,
         .Project.Module.Core
     ],
     externalDependencies: [
