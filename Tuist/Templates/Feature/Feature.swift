@@ -38,6 +38,10 @@ let template = Template(
             templatePath: "DemoAppDelegate.stencil"
         ),
         .file(
+            path: "Projects/Features/\(nameAttribute)/Demo/SceneDelegate.swift",
+            templatePath: "DemoSceneDelegate.stencil"
+        ),
+        .file(
             path: "Projects/Features/\(nameAttribute)/Resources/.gitkeep",
             templatePath: "Gitkeep.stencil"
         ),
