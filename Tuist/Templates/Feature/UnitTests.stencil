@@ -1,0 +1,10 @@
+import Testing
+@testable import {{ name }}
+
+@Suite
+struct {{ name }}Tests {
+    @Test
+    func example() {
+        // TODO: Add tests
+    }
+}

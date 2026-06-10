@@ -1,0 +1,4 @@
+import Foundation
+@testable import {{ name }}
+
+public final class {{ name }}Mock: {{ name }}Interfaceable {}
