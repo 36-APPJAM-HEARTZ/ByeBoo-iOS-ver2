@@ -45,16 +45,16 @@ tuist generate
 
 ---
 
-## 새로운 Feature 생성 방법
+## 📒 새로운 Feature 생성 방법
 
 1. 피처 생성 명령어
   터미널에서 프로젝트 루트 디렉토리로 이동한 뒤 다음 명령어를 실행합니다.
 
-   1 # 'MyNew'라는 이름의 피처를 생성할 경우
-   2 tuist scaffold feature --name MyNew
+   1 # `MyNew`라는 이름의 피처를 생성할 경우
+   2 `tuist scaffold feature --name MyNew`
 
   2. 생성되는 결과물
-  명령어를 실행하면 Projects/Features/MyNewFeature/ 폴더 하위에 다음과 같은 Micro Architecture 표준 구조가 자동으로
+  명령어를 실행하면 `Projects/Features/MyNewFeature/` 폴더 하위에 다음과 같은 Micro Architecture 표준 구조가 자동으로
   생성됩니다.
 
    * Project.swift: 모듈 설정 파일
@@ -68,23 +68,24 @@ tuist generate
   3. 생성 후 필수 작업 (수동)
   템플릿이 파일을 만들어주지만, 프로젝트 전체에 연결하는 작업은 수동으로 한 번 해주어야 합니다.
 
-  ① Plugin/DependencyPlugin에 등록
+  ① `Plugin/DependencyPlugin`에 등록
   다른 모듈에서 이 피처를 의존성으로 추가할 수 있도록 등록합니다.
+```
+   // Plugin/DependencyPlugin/ProjectDescriptionHelpers/DependencyPlugin.swift
 
-   1 // Plugin/DependencyPlugin/ProjectDescriptionHelpers/DependencyPlugin.swift
-   2 public extension TargetDependency.Project.Features {
-   3     static let MyNew = feature(name: "MyNew") // 추가
-   4 }
-
+   public extension TargetDependency.Project.Features {
+       static let MyNew = feature(name: "MyNew") // 추가
+   }
+```
 
   ③ 프로젝트 생성
   설정이 끝났으면 다시 generate를 실행합니다.
-   1 mise exec -- tuist generate
+   `tuist generate`
 
   💡 팁: 템플릿 수정이 필요할 때
-  만약 생성되는 파일의 기본 코드(예: Sources/MyNewFeature.swift 내용 등)를 바꾸고 싶다면, 다음 폴더의 .stencil 파일들을
+  만약 생성되는 파일의 기본 코드(예: `Sources/MyNewFeature.swift` 내용 등)를 바꾸고 싶다면, 다음 폴더의 .stencil 파일들을
   수정하면 됩니다.
-   * 경로: Tuist/Templates/Feature/*.stencil
+   * 경로: `Tuist/Templates/Feature/*.stencil`
 
 ## 🏗 Architecture
 
