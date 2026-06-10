@@ -7,9 +7,9 @@ let project = Project.makeModule(
     targets: [.app],
     internalDependencies: [
         .Project.Module.Core,
-        .Project.Features.feature(name: "Splash"),
-        .Project.Features.feature(name: "MainTab"),
-        .Project.Features.feature(name: "Onboarding")
+        .Project.Features.Splash,
+        .Project.Features.MainTab,
+        .Project.Features.Onboarding
     ],
     hasResources: true
 )

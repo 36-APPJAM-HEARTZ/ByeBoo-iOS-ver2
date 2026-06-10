@@ -17,6 +17,15 @@ public extension TargetDependency.Project.Features {
     static func testing(name: String) -> TargetDependency {
         .project(target: "\(name)FeatureTesting", path: .relativeToRoot("Projects/Features/\(name)Feature"))
     }
+    
+    // Features
+    static let Home = feature(name: "Home")
+    static let MainTab = feature(name: "MainTab")
+    static let MyPage = feature(name: "MyPage")
+    static let Onboarding = feature(name: "Onboarding")
+    static let Quest = feature(name: "Quest")
+    static let Splash = feature(name: "Splash")
+    static let Tutorial = feature(name: "Tutorial")
 }
 
 public extension TargetDependency.Project.Module {
