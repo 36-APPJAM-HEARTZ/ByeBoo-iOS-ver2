@@ -12,7 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        let vc = TutorialFeatureViewController()
+        let vc = TutorialModalViewController()
         window?.rootViewController = UINavigationController(rootViewController: vc)
         window?.makeKeyAndVisible()
     }

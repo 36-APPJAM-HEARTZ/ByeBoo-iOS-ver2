@@ -27,7 +27,7 @@ public final class TutorialModalViewController: BaseViewController {
 //            action: #selector(back)
 //        )
 //        
-        Mixpanel.mainInstance().track(event: MyPageEvents.Name.tutorialPageView)
+        Mixpanel.mainInstance().track(event: TutorialEvents.Name.tutorialPageView)
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
