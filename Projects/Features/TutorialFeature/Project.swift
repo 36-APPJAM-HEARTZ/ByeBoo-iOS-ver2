@@ -14,7 +14,8 @@ let project = Project.makeModule(
     externalDependencies: [
         .SPM.SnapKit,
         .SPM.Then,
-        .SPM.Lottie
+        .SPM.Lottie,
+        .SPM.Mixpanel
     ],
     hasResources: true
 )
