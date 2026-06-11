@@ -33,6 +33,7 @@ public extension TargetDependency.Project.Module {
     static let Data = TargetDependency.project(target: "Data", path: .relativeToRoot("Projects/Data"))
     static let Core = TargetDependency.project(target: "Core", path: .relativeToRoot("Projects/Core"))
     static let DesignSystem = TargetDependency.project(target: "DesignSystem", path: .relativeToRoot("Projects/DesignSystem"))
+    static let PresentationKit = TargetDependency.project(target: "PresentationKit", path: .relativeToRoot("Projects/PresentationKit"))
 }
 
 public extension TargetDependency {

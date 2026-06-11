@@ -9,7 +9,8 @@ let project = Project.makeModule(
     internalDependencies: [
         .Project.Module.DomainInterface,
         .Project.Module.Core,
-        .Project.Module.DesignSystem
+        .Project.Module.DesignSystem,
+        .Project.Module.PresentationKit
     ],
     externalDependencies: [
         .SPM.SnapKit,
