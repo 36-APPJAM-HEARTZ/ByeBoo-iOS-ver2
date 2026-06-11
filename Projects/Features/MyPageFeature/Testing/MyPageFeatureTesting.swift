@@ -1,4 +1,4 @@
 import Foundation
-@testable import MyPageFeature
+import MyPageFeatureInterface
 
 public final class MyPageFeatureMock: MyPageFeatureInterfaceable {}

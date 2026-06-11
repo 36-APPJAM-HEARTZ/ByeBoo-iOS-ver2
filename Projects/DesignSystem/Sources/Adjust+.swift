@@ -15,7 +15,7 @@ import UIKit
 /// ex) (size: 20.adjustedW)
 /// ex) (size: 60.adjustedH)
 
-extension CGFloat {
+public extension CGFloat {
     var adjustedW: CGFloat {
         let ratio: CGFloat = UIScreen.main.bounds.width / 375
         return self * ratio
@@ -27,7 +27,7 @@ extension CGFloat {
     }
 }
 
-extension Double {
+public extension Double {
     var adjustedW: Double {
         let ratio: Double = Double(UIScreen.main.bounds.width / 375)
         return self * ratio
@@ -39,7 +39,7 @@ extension Double {
     }
 }
 
-extension Int {
+public extension Int {
     var adjustedW: CGFloat {
         return CGFloat(self).adjustedW
     }

@@ -1,22 +1,18 @@
-
 import ProjectDescription
 import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: "HomeFeature",
-    targets: [.framework, .interface, .testing, .unitTest, .demo],
+    name: "PresentationKit",
+    targets: [.framework],
     internalDependencies: [
-        .Project.Module.DomainInterface,
         .Project.Module.Core,
-        .Project.Module.DesignSystem,
-        .Project.Module.PresentationKit
+        .Project.Module.DomainInterface
     ],
     externalDependencies: [
         .SPM.SnapKit,
         .SPM.Then,
-        .SPM.Lottie,
         .SPM.Mixpanel
     ],
-    hasResources: true
+    hasResources: false
 )
