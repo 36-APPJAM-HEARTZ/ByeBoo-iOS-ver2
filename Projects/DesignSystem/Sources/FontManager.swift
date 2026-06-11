@@ -38,6 +38,11 @@ public extension FontManager {
         property.size * (property.kern / 100.0)
     }
 
+    /// NSAttributedString에 사용
+    /// label.attributedText = NSAttributedString(
+    /// string: "안녕하세요",
+    /// attributes: FontManager.head1M24.attributes
+    /// )
     var attributes: [NSAttributedString.Key: Any] {
         [
             .font: font,
