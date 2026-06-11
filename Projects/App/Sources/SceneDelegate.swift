@@ -7,6 +7,8 @@
 
 import UIKit
 
+import DesignSystem
+
 import SplashFeature
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -14,6 +16,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
+        DesignSystemFontFamily.registerAllCustomFonts()
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = SplashFeatureViewController()
