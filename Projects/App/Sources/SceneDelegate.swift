@@ -13,6 +13,7 @@ import SplashFeature
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
+    private let appComponent = AppComponent()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,
                options connectionOptions: UIScene.ConnectionOptions) {
@@ -20,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = SplashViewController(viewModel: SplashViewModel())
+        
+        window?.rootViewController = appComponent.splashComponent.splashViewController
         window?.makeKeyAndVisible()
     }
 }

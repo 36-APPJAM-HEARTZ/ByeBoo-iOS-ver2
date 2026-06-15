@@ -11,21 +11,21 @@ import Alamofire
 
 import Core
 
-protocol TokenService: Sendable {
+public protocol TokenService: Sendable {
     func reissue() async throws
 }
 
 
-actor DefaultTokenService: TokenService {
+public actor DefaultTokenService: TokenService {
     private var tokenTask: Task<Void, Error>?
     private let keychainService: KeychainService
     
     
-    init(keychainService: KeychainService) {
+    public init(keychainService: KeychainService) {
         self.keychainService = keychainService
     }
     
-    func reissue() async throws {
+    public func reissue() async throws {
         
         if let task = tokenTask {
             return try await task.value

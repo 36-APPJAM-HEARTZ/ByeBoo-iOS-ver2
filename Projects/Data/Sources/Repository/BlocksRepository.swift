@@ -9,25 +9,25 @@ import Foundation
 
 import DomainInterface
 
-struct DefaultBlocksRepository: BlocksInterface {
+public struct DefaultBlocksRepository: BlocksInterface {
     
     private let networkService: NetworkService
     
-    init(
+    public init(
         networkService: NetworkService
     ) {
         self.networkService = networkService
     }
     
-    func blockUser(userID: Int) async throws {
+    public func blockUser(userID: Int) async throws {
         try await networkService.request(BlocksAPI.blockUser(userID: userID))
     }
     
-    func deleteBlockedUser(blockID: Int) async throws {
+    public func deleteBlockedUser(blockID: Int) async throws {
         try await networkService.request(BlocksAPI.deleteBlockedUser(userID: blockID))
     }
     
-    func getBlockedUsersList() async throws -> [BlockedUserEntity] {
+    public func getBlockedUsersList() async throws -> [BlockedUserEntity] {
         let blockList = try await networkService.request(
             BlocksAPI.getBlockList,
             decodingType: GetBlockedUserListResponseDTO.self

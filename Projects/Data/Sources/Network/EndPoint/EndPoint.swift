@@ -11,7 +11,7 @@ import Alamofire
 
 import Core
 
-protocol EndPoint {
+public protocol EndPoint {
     /// ex ) /api/v1/quests/journey?journey={journey}
     ///
     /// basePath - /api/v1/quests
@@ -58,7 +58,7 @@ extension EndPoint {
     }
 }
 
-enum HeaderType {
+public enum HeaderType {
     case basic
     case withAuth
     case refresh(refreshToken: String)

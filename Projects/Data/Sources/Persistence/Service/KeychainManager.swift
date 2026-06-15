@@ -10,7 +10,7 @@ import Security
 
 import Core
 
-enum KeyType: String, CaseIterable {
+public enum KeyType: String, CaseIterable {
     case authorization
     case accessToken
     case refreshToken

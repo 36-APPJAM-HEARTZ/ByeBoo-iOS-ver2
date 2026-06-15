@@ -36,6 +36,8 @@ public final class SplashViewController: BaseViewController {
                 timeoutFallback()
             }
         }
+        
+        viewModel.test()
     }
 }
 

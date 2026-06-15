@@ -11,12 +11,12 @@ import Alamofire
 
 import Core
 
-final class NetworkInterceptor: RequestInterceptor {
+public final class NetworkInterceptor: RequestInterceptor {
     private let tokenService: TokenService
     private let keychainService: KeychainService
     private let retryLimit = 3
     
-    init(
+    public init(
         tokenService: TokenService,
         keychainService: KeychainService
     ) {
@@ -24,7 +24,7 @@ final class NetworkInterceptor: RequestInterceptor {
         self.keychainService = keychainService
     }
     
-    func adapt(
+    public func adapt(
         _ urlRequest: URLRequest,
         for session: Alamofire.Session,
         completion: @escaping @Sendable (Result<URLRequest, any Error>) -> Void) {
@@ -40,7 +40,7 @@ final class NetworkInterceptor: RequestInterceptor {
             completion(.success(request))
         }
     
-    func retry(
+    public func retry(
         _ request: Alamofire.Request,
         for session: Alamofire.Session,
         dueTo error: any Error,

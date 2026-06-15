@@ -7,9 +7,14 @@ let project = Project.makeModule(
     targets: [.app],
     internalDependencies: [
         .Project.Module.Core,
+        .Project.Module.DomainInterface,
+        .Project.Module.Domain,
+        .Project.Module.Data,
+        
         .Project.Features.Splash,
+
         .Project.Features.MainTab,
-        .Project.Features.Onboarding
+        .Project.Features.Onboarding,
     ],
     hasResources: true
 )
