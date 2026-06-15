@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ByeBooError: Error, LocalizedError, Equatable {
+public enum ByeBooError: Error, LocalizedError, Equatable {
     case DIFailedError
     case decodingError
     case URLError
@@ -29,7 +29,7 @@ enum ByeBooError: Error, LocalizedError, Equatable {
     case nicknameViolation
     case questViolation
     
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .DIFailedError:
             return "의존성 주입 실패"

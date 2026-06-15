@@ -81,7 +81,7 @@ enum LogLevel {
     }
 }
 
-struct ByeBooLogger {
+public struct ByeBooLogger {
     private static var isDebugMode: Bool {
         #if DEBUG
         return true
@@ -133,7 +133,7 @@ struct ByeBooLogger {
         }
     }
     
-    static func network(
+    public static func network(
         _ message: Any,
         file: String = #file,
         function: String = #function
@@ -141,7 +141,7 @@ struct ByeBooLogger {
         log(level: .network, message: message, file: file, function: function)
     }
     
-    static func lifeCycle(
+    public static func lifeCycle(
         _ message: Any,
         file: String = #file,
         function: String = #function
@@ -149,7 +149,7 @@ struct ByeBooLogger {
         log(level: .lifeCycle, message: message, file: file, function: function)
     }
     
-    static func debug(
+    public static func debug(
         _ message: Any,
         file: String = #file,
         function: String = #function
@@ -157,7 +157,7 @@ struct ByeBooLogger {
         log(level: .debug, message: message, file: file, function: function)
     }
     
-    static func data(
+    public static func data(
         _ message: Any,
         file: String = #file,
         function: String = #function
@@ -165,7 +165,7 @@ struct ByeBooLogger {
         log(level: .data, message: message, file: file, function: function)
     }
     
-    static func error(
+    public static func error(
         _ error: Error,
         file: String = #file,
         function: String = #function
