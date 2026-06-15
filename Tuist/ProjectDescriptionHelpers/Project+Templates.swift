@@ -7,6 +7,7 @@
 
 import ProjectDescription
 import EnvPlugin
+import DependencyPlugin
 
 public extension Project {
     static func makeModule(
@@ -122,6 +123,12 @@ public extension Project {
         
         // MARK: - App
         if targets.contains(.app) {
+            let needleScript = TargetScript.pre(
+                script: "export PATH=$PATH:/opt/homebrew/bin; needle generate $SRCROOT/Sources/NeedleGenerated.swift $SRCROOT/../../Projects/",
+                name: "Needle Generate",
+                basedOnDependencyAnalysis: false
+            )
+            
             projectTargets.append(
                 .target(
                     name: name,
@@ -145,10 +152,12 @@ public extension Project {
                     ]),
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],
-                    dependencies: internalDependencies + externalDependencies
+                    scripts: [needleScript],
+                    dependencies: internalDependencies + externalDependencies + [.SPM.Needle]
                 )
             )
         }
+
         
         return Project(
             name: name,

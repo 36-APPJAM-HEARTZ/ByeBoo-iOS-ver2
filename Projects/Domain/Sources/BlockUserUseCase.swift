@@ -7,14 +7,14 @@
 
 import DomainInterface
 
-struct DefaultBlockUserCase: BlockUserUseCase {
+public struct DefaultBlockUserCase: BlockUserUseCase {
     private let repository: BlocksInterface
     
-    init(repository: BlocksInterface) {
+    public init(repository: BlocksInterface) {
         self.repository = repository
     }
     
-    func execute(userID: Int) async throws {
+    public func execute(userID: Int) async throws {
         try await repository.blockUser(userID: userID)
     }
 }

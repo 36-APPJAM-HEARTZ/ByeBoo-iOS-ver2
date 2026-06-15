@@ -8,6 +8,8 @@
 import Combine
 import Foundation
 
+import DomainInterface
+
 public final class SplashViewModel {
     
 //    private var autoLoginSubject: PassthroughSubject<Result<Void, ByeBooError>, Never> = .init()
@@ -26,8 +28,17 @@ public final class SplashViewModel {
 //    ) {
 //        self.autoLoginUseCase = autoLoginUseCase
 //    }
+    private let blockUserUseCase: BlockUserUseCase
     
-    public init() { }
+    public init(blockUserUseCase: BlockUserUseCase) {
+        self.blockUserUseCase = blockUserUseCase
+    }
+    
+    func test() {
+        Task {
+            try await blockUserUseCase.execute(userID: 1)
+        }
+    }
 }
 
 

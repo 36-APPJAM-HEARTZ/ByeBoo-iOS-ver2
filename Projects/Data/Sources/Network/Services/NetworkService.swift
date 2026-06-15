@@ -13,7 +13,7 @@ import KakaoSDKUser
 
 import Core
 
-protocol NetworkService {
+public protocol NetworkService {
     func request<T: Decodable>(
         _ endPoint: EndPoint,
         decodingType: T.Type
@@ -24,15 +24,15 @@ protocol NetworkService {
     func appleRequest() async throws -> (String, String)
 }
 
-final class DefaultNetworkService: NSObject, NetworkService {
+public final class DefaultNetworkService: NSObject, NetworkService {
     private var continuation: CheckedContinuation<(String, String), Error>?
     private let interceptor: NetworkInterceptor
     
-    init(interceptor: NetworkInterceptor) {
+    public init(interceptor: NetworkInterceptor) {
         self.interceptor = interceptor
     }
     
-    func request<T: Decodable>(
+    public func request<T: Decodable>(
         _ endPoint: EndPoint,
         decodingType: T.Type
     ) async throws -> T {
@@ -78,7 +78,7 @@ final class DefaultNetworkService: NSObject, NetworkService {
     }
     
     /// data가 없는 경우 네트워크 처리
-    func request(_ endPoint: EndPoint) async throws {
+    public func request(_ endPoint: EndPoint) async throws {
         requestLogger(endPoint)
         
         return try await withCheckedThrowingContinuation { [weak self] continuation in
@@ -116,7 +116,7 @@ final class DefaultNetworkService: NSObject, NetworkService {
     }
     
     /// 이미지 처리
-    func request(image: Data, signedURL: String) async throws {
+    public func request(image: Data, signedURL: String) async throws {
         return try await withCheckedThrowingContinuation { continuation in
             AF.upload(
                 image,
@@ -139,7 +139,7 @@ final class DefaultNetworkService: NSObject, NetworkService {
     }
     
     @MainActor
-    func kakaoRequest() async throws -> String {
+    public func kakaoRequest() async throws -> String {
         return try await withCheckedThrowingContinuation { continuation in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { ouathToken, error in
@@ -166,7 +166,7 @@ final class DefaultNetworkService: NSObject, NetworkService {
     }
     
     @MainActor
-    func appleRequest() async throws -> (String, String) {
+    public func appleRequest() async throws -> (String, String) {
         return try await  withCheckedThrowingContinuation { continuation in
             self.continuation = continuation
             let provider = ASAuthorizationAppleIDProvider()
@@ -216,7 +216,7 @@ final class DefaultNetworkService: NSObject, NetworkService {
 
 extension DefaultNetworkService: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+    public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first
         else {
@@ -225,7 +225,7 @@ extension DefaultNetworkService: ASAuthorizationControllerDelegate, ASAuthorizat
         return window
     }
     
-    func authorizationController (
+    public func authorizationController (
         controller: ASAuthorizationController,
         didCompleteWithAuthorization authorization: ASAuthorization
     ) {
@@ -246,7 +246,7 @@ extension DefaultNetworkService: ASAuthorizationControllerDelegate, ASAuthorizat
         continuation.resume(returning: (identityTokenString, authorizationCodeString))
     }
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         guard let continuation = self.continuation else { return }
         continuation.resume(throwing: ByeBooError.appleLoginError)
     }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "bd70c4c6ce68dfc6975e44ebb8de1e3cf7ca9730287de2bf459826d12c18e96a",
+  "originHash" : "563a899ea96c3cf012db4ea019a8fd914b3684af18d808575530442f34e2292a",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -152,6 +152,15 @@
       "state" : {
         "revision" : "b7e1104502eca3a213b46303391ca4d3bc8ddec1",
         "version" : "2.30910.0"
+      }
+    },
+    {
+      "identity" : "needle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/uber/needle.git",
+      "state" : {
+        "revision" : "69f7a889d2736f2621c6083ac29e0a75d158f249",
+        "version" : "0.25.1"
       }
     },
     {

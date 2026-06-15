@@ -10,7 +10,8 @@ let project = Project.makeModule(
         .Project.Module.Core
     ],
     externalDependencies: [
-        .SPM.Alamofire
+        .SPM.Alamofire,
+        .SPM.KakaoSDKUser
     ]
 )
 

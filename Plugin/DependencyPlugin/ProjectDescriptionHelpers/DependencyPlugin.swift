@@ -30,7 +30,9 @@ public extension TargetDependency.Project.Features {
 
 public extension TargetDependency.Project.Module {
     static let DomainInterface = TargetDependency.project(target: "DomainInterface", path: .relativeToRoot("Projects/Domain"))
+    static let Domain = TargetDependency.project(target: "Domain", path: .relativeToRoot("Projects/Domain"))
     static let Data = TargetDependency.project(target: "Data", path: .relativeToRoot("Projects/Data"))
+
     static let Core = TargetDependency.project(target: "Core", path: .relativeToRoot("Projects/Core"))
     static let DesignSystem = TargetDependency.project(target: "DesignSystem", path: .relativeToRoot("Projects/DesignSystem"))
     static let PresentationKit = TargetDependency.project(target: "PresentationKit", path: .relativeToRoot("Projects/PresentationKit"))
@@ -51,5 +53,6 @@ public extension TargetDependency.SPM {
     static let Kingfisher = TargetDependency.external(name: "Kingfisher")
     static let Mixpanel = TargetDependency.external(name: "Mixpanel")
     static let Then = TargetDependency.external(name: "Then")
+    static let Needle = TargetDependency.external(name: "NeedleFoundation")
 }
 
