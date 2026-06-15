@@ -23,5 +23,7 @@ let package = Package(
         .package(url: "https://github.com/onevcat/Kingfisher.git", .upToNextMajor(from: "7.0.0")),
         .package(url: "https://github.com/mixpanel/mixpanel-swift.git", .upToNextMajor(from: "4.0.0")),
         .package(url: "https://github.com/devxoul/Then.git", .upToNextMajor(from: "3.0.0")),
+        .package(url: "https://github.com/uber/needle.git", .upToNextMajor(from: "0.25.1")),
+
     ]
 )
