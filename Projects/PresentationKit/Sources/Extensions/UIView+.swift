@@ -1,0 +1,32 @@
+//
+//  UIView+.swift
+//  ByeBoo-iOS
+//
+//  Created by 최주리 on 6/28/25.
+//
+
+import UIKit
+
+import Then
+import SnapKit
+
+public extension UIView {
+    func addSubviews(_ views: UIView...) {
+        views.forEach { self.addSubview($0) }
+    }
+    
+    func setBlurEffect(alpha: CGFloat = 1) {
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        insertSubview(blurView, at: 0)
+        blurView.do {
+            $0.layer.cornerRadius = 12
+            $0.clipsToBounds = true
+            $0.alpha = alpha
+        }
+        blurView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        blurView.alpha = alpha
+    }
+}
