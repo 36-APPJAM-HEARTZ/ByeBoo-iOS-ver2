@@ -125,7 +125,5 @@ Gemfile.lock
 
 .DS_Store
 
-ConfigManager.swift
-
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,swiftpackagemanager
