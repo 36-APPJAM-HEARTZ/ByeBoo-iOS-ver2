@@ -7,16 +7,18 @@ let project = Project.makeModule(
     name: "HomeFeature",
     targets: [.framework, .interface, .testing, .unitTest, .demo],
     internalDependencies: [
-        .Project.Module.DomainInterface,
         .Project.Module.Core,
         .Project.Module.DesignSystem,
-        .Project.Module.PresentationKit
     ],
     externalDependencies: [
         .SPM.SnapKit,
         .SPM.Then,
         .SPM.Lottie,
         .SPM.Mixpanel
+    ],
+    interfaceDependencies: [
+        .Project.Module.DomainInterface,
+        .Project.Module.PresentationKit
     ],
     hasResources: true
 )
