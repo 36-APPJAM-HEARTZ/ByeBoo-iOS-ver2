@@ -16,11 +16,12 @@ public protocol SplashDependency: Dependency {
 }
 
 public final class SplashComponent: Component<SplashDependency> {
-    var viewModel: SplashViewModel {
-        return SplashViewModel(blockUserUseCase: dependency.blockUserUseCase)
-    }
-    
-    public var splashViewController: UIViewController {
+    public func splashViewController(coordinator: SplashCoordinator) -> UIViewController {
+        let viewModel = SplashViewModel(
+            coordinatr: coordinator,
+            blockUserUseCase: dependency.blockUserUseCase
+        )
+        
         return SplashViewController(viewModel: viewModel)
     }
 }
