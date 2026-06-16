@@ -159,7 +159,8 @@ public extension Project {
                                     ])
                                 ])
                             ])
-                        ])
+                        ]),
+                        "UIDesignRequiresCompatibility": .boolean(true),
                     ]),
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],
