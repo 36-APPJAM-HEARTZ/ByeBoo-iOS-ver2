@@ -15,35 +15,59 @@ import UIKit
 /// ex) (size: 20.adjustedW)
 /// ex) (size: 60.adjustedH)
 
+private extension CGFloat {
+    @MainActor
+    static var screenWidth: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return 375
+        }
+        return scene.screen.bounds.width
+    }
+    
+    @MainActor
+    static var screenHeight: CGFloat {
+        guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return 812
+        }
+        return scene.screen.bounds.height
+    }
+}
+
 public extension CGFloat {
+    @MainActor
     var adjustedW: CGFloat {
-        let ratio: CGFloat = UIScreen.main.bounds.width / 375
+        let ratio: CGFloat = CGFloat.screenWidth / 375
         return self * ratio
     }
     
+    @MainActor
     var adjustedH: CGFloat {
-        let ratio: CGFloat = UIScreen.main.bounds.height / 812
+        let ratio: CGFloat = CGFloat.screenHeight / 812
         return self * ratio
     }
 }
 
 public extension Double {
+    @MainActor
     var adjustedW: Double {
-        let ratio: Double = Double(UIScreen.main.bounds.width / 375)
+        let ratio: Double = Double(CGFloat.screenWidth / 375)
         return self * ratio
     }
     
+    @MainActor
     var adjustedH: Double {
-        let ratio: Double = Double(UIScreen.main.bounds.height / 812)
+        let ratio: Double = Double(CGFloat.screenHeight / 812)
         return self * ratio
     }
 }
 
 public extension Int {
+    @MainActor
     var adjustedW: CGFloat {
         return CGFloat(self).adjustedW
     }
     
+    @MainActor
     var adjustedH: CGFloat {
         return CGFloat(self).adjustedH
     }

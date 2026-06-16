@@ -24,7 +24,16 @@ public protocol NetworkService {
     func appleRequest() async throws -> (String, String)
 }
 
-public final class DefaultNetworkService: NSObject, NetworkService {
+/// Alamofire 기반 네트워크 서비스 구현체
+///
+/// ## Thread Safety
+/// `@unchecked Sendable` 채택 근거:
+/// - `interceptor`: let으로 불변
+/// - `continuation`: `appleRequest()` (@MainActor) 컨텍스트에서만 접근
+/// - Alamofire 콜백은 내부적으로 thread-safe 처리
+///
+/// 
+public final class DefaultNetworkService: NSObject, NetworkService, @unchecked Sendable {
     private var continuation: CheckedContinuation<(String, String), Error>?
     private let interceptor: NetworkInterceptor
     
@@ -32,7 +41,7 @@ public final class DefaultNetworkService: NSObject, NetworkService {
         self.interceptor = interceptor
     }
     
-    public func request<T: Decodable>(
+    public func request<T: Decodable & Sendable>(
         _ endPoint: EndPoint,
         decodingType: T.Type
     ) async throws -> T {
@@ -189,9 +198,9 @@ public final class DefaultNetworkService: NSObject, NetworkService {
     
     private func responseLogger<T>(_ response: DataResponse<T, AFError>) {
         ByeBooLogger.network("[Response Start]")
-        ByeBooLogger.network("StatusCode: \(response.response?.statusCode)")
-        ByeBooLogger.network("Header: \(response.response?.headers)")
-        ByeBooLogger.network("Description: \(response.response?.description)")
+        ByeBooLogger.network("StatusCode: \(String(describing: response.response?.statusCode))")
+        ByeBooLogger.network("Header: \(String(describing: response.response?.headers))")
+        ByeBooLogger.network("Description: \(String(describing: response.response?.description))")
     }
     
     private func handleError(_ statusCode: Int, _ errorResponse: String) -> ByeBooError {

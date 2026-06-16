@@ -15,6 +15,7 @@ public protocol SplashDependency: Dependency {
     var blockUserUseCase: BlockUserUseCase { get }
 }
 
+@MainActor
 public final class SplashComponent: Component<SplashDependency> {
     public func splashViewController(coordinator: SplashCoordinator) -> UIViewController {
         let viewModel = SplashViewModel(
