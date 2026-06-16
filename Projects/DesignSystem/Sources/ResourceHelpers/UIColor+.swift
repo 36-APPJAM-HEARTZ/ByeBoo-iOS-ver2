@@ -7,7 +7,15 @@
 
 import UIKit
 
+/// 앱에서 사용하는 공통 컬러 자산에 접근하기 위한 UIColor 익스텐션입니다.
+/// 디자인 가이드에 정의된 테마 컬러 및 시스템 컬러를 제공합니다.
+///
+/// ### 사용 예시
+/// ```swift
+/// view.backgroundColor = .primary300
+/// ```
 public extension UIColor {
+
     // MARK: - Grayscale
     static let black = DesignSystemAsset.Color.black.color
     static let white = DesignSystemAsset.Color.white.color

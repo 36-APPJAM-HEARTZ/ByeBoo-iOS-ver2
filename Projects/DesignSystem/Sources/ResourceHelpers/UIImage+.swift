@@ -7,7 +7,15 @@
 
 import UIKit
 
+/// 앱에서 사용하는 공통 이미지 및 아이콘 자산에 접근하기 위한 UIImage 익스텐션입니다.
+///
+/// ### 사용 예시
+/// ```swift
+/// 이미지 적용
+/// imageView.image = .logo
+/// ```
 public extension UIImage {
+
     // MARK: - Image
     static let bgDark = DesignSystemAsset.Image.bgDark.image
     static let bgHome = DesignSystemAsset.Image.bgHome.image
