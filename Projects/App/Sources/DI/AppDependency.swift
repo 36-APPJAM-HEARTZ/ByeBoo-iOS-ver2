@@ -6,7 +6,7 @@ import Domain
 
 import SplashFeature
 
-public final class AppDependency: BootstrapComponent {
+public final class AppComponent: BootstrapComponent {
     // MARK: - Persistence
     public var keychain: KeychainService { shared { DefaultKeychainService() } }
     public var userDefaults: UserDefaultService { shared { DefaultUserDefaultService() } }
@@ -29,21 +29,21 @@ public final class AppDependency: BootstrapComponent {
 }
 
 // MARK: - Repository
-extension AppDependency {
+extension AppComponent {
     public var blocksRepository: BlocksInterface {
         shared { DefaultBlocksRepository(networkService: network) }
     }
 }
 
 // MARK: - UseCase
-extension AppDependency {
+extension AppComponent {
     public var blockUserUseCase: BlockUserUseCase {
         shared { DefaultBlockUserCase(repository: blocksRepository) }
     }
 }
 
 // MARK: - Features
-extension AppDependency {
+extension AppComponent {
     public var splashComponent: SplashComponent {
         SplashComponent(parent: self)
     }

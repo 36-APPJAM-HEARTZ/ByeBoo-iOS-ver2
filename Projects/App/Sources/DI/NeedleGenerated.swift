@@ -24,14 +24,14 @@ private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
     var blockUserUseCase: BlockUserUseCase {
         return appComponent.blockUserUseCase
     }
-    private let appComponent: AppDependency
-    init(appComponent: AppDependency) {
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
         self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->SplashComponent
 private func factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return SplashDependencye0cb7136f2ec3edfd60aProvider(appComponent: parent1(component) as! AppDependency)
+    return SplashDependencye0cb7136f2ec3edfd60aProvider(appComponent: parent1(component) as! AppComponent)
 }
 
 #else
