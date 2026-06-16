@@ -8,13 +8,8 @@ import SplashFeature
 
 public final class AppComponent: BootstrapComponent {
     // MARK: - Persistence
-    public var keychain: KeychainService {
-        shared { DefaultKeychainService() }
-    }
-    
-    public var userDefaults: UserDefaultService {
-        shared { DefaultUserDefaultService() }
-    }
+    public var keychain: KeychainService { shared { DefaultKeychainService() } }
+    public var userDefaults: UserDefaultService { shared { DefaultUserDefaultService() } }
     
     // MARK: - Network
     public var interceptor: NetworkInterceptor {
@@ -25,22 +20,23 @@ public final class AppComponent: BootstrapComponent {
             )
         }
     }
-    
-    // MARK: - Service
     public var tokenService: TokenService {
         shared { DefaultTokenService(keychainService: keychain) }
     }
-    
     public var network: NetworkService {
         shared { DefaultNetworkService(interceptor: interceptor) }
     }
-    
-    // MARK: - Repository
+}
+
+// MARK: - Repository
+extension AppComponent {
     public var blocksRepository: BlocksInterface {
         shared { DefaultBlocksRepository(networkService: network) }
     }
-    
-    // MARK: - UseCase
+}
+
+// MARK: - UseCase
+extension AppComponent {
     public var blockUserUseCase: BlockUserUseCase {
         shared { DefaultBlockUserCase(repository: blocksRepository) }
     }

@@ -9,6 +9,7 @@ import Combine
 import Foundation
 
 import DomainInterface
+import SplashFeatureInterface
 
 public final class SplashViewModel {
     
@@ -28,16 +29,20 @@ public final class SplashViewModel {
 //    ) {
 //        self.autoLoginUseCase = autoLoginUseCase
 //    }
+    
+    private weak var coordinator: SplashCoordinatorProtocol?
     private let blockUserUseCase: BlockUserUseCase
     
-    public init(blockUserUseCase: BlockUserUseCase) {
+    public init(
+        coordinatr: SplashCoordinatorProtocol,
+        blockUserUseCase: BlockUserUseCase
+    ) {
+        self.coordinator = coordinatr
         self.blockUserUseCase = blockUserUseCase
     }
     
     func test() {
-        Task {
-            try await blockUserUseCase.execute(userID: 1)
-        }
+        coordinator?.showLogin()
     }
 }
 

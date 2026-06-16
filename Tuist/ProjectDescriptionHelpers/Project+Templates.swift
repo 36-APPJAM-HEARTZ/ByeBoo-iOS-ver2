@@ -124,7 +124,7 @@ public extension Project {
         // MARK: - App
         if targets.contains(.app) {
             let needleScript = TargetScript.pre(
-                script: "export PATH=$PATH:/opt/homebrew/bin; needle generate $SRCROOT/Sources/NeedleGenerated.swift $SRCROOT/../../Projects/",
+                script: "export PATH=$PATH:/opt/homebrew/bin; needle generate $SRCROOT/Sources/DI/NeedleGenerated.swift $SRCROOT/../../Projects/",
                 name: "Needle Generate",
                 basedOnDependencyAnalysis: false
             )
