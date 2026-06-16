@@ -27,6 +27,7 @@ public enum NavigationBarType: Equatable {
     case none(header: NavigationHeaderType = .clear)
 }
 
+@MainActor
 public struct ByeBooNavigationBar {
     
     public static func makeNavigationBar(

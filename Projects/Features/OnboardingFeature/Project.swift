@@ -14,7 +14,8 @@ let project = Project.makeModule(
         .SPM.SnapKit,
         .SPM.Then,
         .SPM.Lottie,
-        .SPM.Mixpanel
+        .SPM.Mixpanel,
+        .SPM.Needle
     ],
     interfaceDependencies: [
         .Project.Module.DomainInterface,

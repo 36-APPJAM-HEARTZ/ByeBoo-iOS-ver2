@@ -5,6 +5,7 @@
 //  Created by 최주리 on 6/16/26.
 //
 
+@MainActor
 public protocol Coordinator: AnyObject {
     var childCoordinators: [Coordinator] { get set }
     func start()
@@ -20,6 +21,7 @@ public extension Coordinator {
     }
 }
 
+@MainActor
 public protocol FinishableProtocol: AnyObject {
     var finished: (() -> Void)? { get set }
 }

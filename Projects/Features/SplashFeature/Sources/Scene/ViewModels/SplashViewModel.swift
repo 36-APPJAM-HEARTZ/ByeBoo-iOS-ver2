@@ -41,6 +41,7 @@ public final class SplashViewModel {
         self.blockUserUseCase = blockUserUseCase
     }
     
+    @MainActor
     func test() {
         coordinator?.showLogin()
     }

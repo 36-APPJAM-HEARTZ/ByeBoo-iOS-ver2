@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 open class BaseViewController: UIViewController {
 
     open override func viewDidLoad() {

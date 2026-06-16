@@ -7,6 +7,7 @@
 
 import PresentationKit
 
+@MainActor
 public protocol SplashCoordinatorProtocol: FinishableProtocol {
     func showSplash()
     func showLogin()

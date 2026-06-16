@@ -32,6 +32,7 @@ final class AppCoordinator: Coordinator {
 }
 
 extension AppCoordinator {
+    @MainActor
     func showSplash() {
         let coordinator = SplashCoordinator(
             navigationController: navigationController,

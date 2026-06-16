@@ -10,6 +10,12 @@ import EnvPlugin
 import DependencyPlugin
 
 public extension Project {
+    private static let baseSettings: SettingsDictionary = [
+        "SWIFT_VERSION": "6.0",
+//        "SWIFT_UPCOMING_FEATURE_STRICT_CONCURRENCY": "complete", // 엄격한 동시성 체크 활성화
+        "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "$(inherited) SWIFT6"
+    ]
+    
     static func makeModule(
         name: String,
         targets: Set<FeatureTarget>,
@@ -34,7 +40,8 @@ public extension Project {
                     bundleId: "\(bundlePrefix).\(name)Interface",
                     deploymentTargets: deploymentTargets,
                     sources: ["Interface/**"],
-                    dependencies: interfaceDependencies
+                    dependencies: interfaceDependencies,
+                    settings: .settings(base: baseSettings)
                 )
             )
         }
@@ -50,7 +57,8 @@ public extension Project {
                     deploymentTargets: deploymentTargets,
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],
-                    dependencies: internalDependencies + externalDependencies + (targets.contains(.interface) ? [.target(name: "\(name)Interface")] : [])
+                    dependencies: internalDependencies + externalDependencies + (targets.contains(.interface) ? [.target(name: "\(name)Interface")] : []),
+                    settings: .settings(base: baseSettings)
                 )
             )
         }
@@ -65,7 +73,8 @@ public extension Project {
                     bundleId: "\(bundlePrefix).\(name)Testing",
                     deploymentTargets: deploymentTargets,
                     sources: ["Testing/**"],
-                    dependencies: targets.contains(.interface) ? [.target(name: "\(name)Interface")] : []
+                    dependencies: targets.contains(.interface) ? [.target(name: "\(name)Interface")] : [],
+                    settings: .settings(base: baseSettings)
                 )
             )
         }
@@ -83,7 +92,8 @@ public extension Project {
                     dependencies: [
                         .target(name: name),
                         targets.contains(.testing) ? .target(name: "\(name)Testing") : nil
-                    ].compactMap { $0 }
+                    ].compactMap { $0 },
+                    settings: .settings(base: baseSettings)
                 )
             )
         }
@@ -116,7 +126,8 @@ public extension Project {
                     dependencies: [
                         .target(name: name),
                         targets.contains(.testing) ? .target(name: "\(name)Testing") : nil
-                    ].compactMap { $0 }
+                    ].compactMap { $0 },
+                    settings: .settings(base: baseSettings)
                 )
             )
         }
@@ -153,11 +164,12 @@ public extension Project {
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],
                     scripts: [needleScript],
-                    dependencies: internalDependencies + externalDependencies + [.SPM.Needle]
+                    dependencies: internalDependencies + externalDependencies + [.SPM.Needle],
+                    settings: .settings(base: baseSettings)
                 )
             )
         }
-
+        
         
         return Project(
             name: name,
