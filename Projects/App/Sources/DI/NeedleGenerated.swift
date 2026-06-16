@@ -21,8 +21,8 @@ private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Sc
 #if !NEEDLE_DYNAMIC
 
 private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
-    var blockUserUseCase: BlockUserUseCase {
-        return appComponent.blockUserUseCase
+    var autoLoginUseCase: AutoLoginUseCase {
+        return appComponent.autoLoginUseCase
     }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
@@ -44,13 +44,15 @@ extension AppComponent: NeedleFoundation.Registration {
         localTable["tokenService-TokenService"] = { [unowned self] in self.tokenService as Any }
         localTable["network-NetworkService"] = { [unowned self] in self.network as Any }
         localTable["blocksRepository-BlocksInterface"] = { [unowned self] in self.blocksRepository as Any }
+        localTable["authRepository-AuthInterface"] = { [unowned self] in self.authRepository as Any }
         localTable["blockUserUseCase-BlockUserUseCase"] = { [unowned self] in self.blockUserUseCase as Any }
+        localTable["autoLoginUseCase-AutoLoginUseCase"] = { [unowned self] in self.autoLoginUseCase as Any }
         localTable["splashComponent-SplashComponent"] = { [unowned self] in self.splashComponent as Any }
     }
 }
 extension SplashComponent: NeedleFoundation.Registration {
     public func registerItems() {
-        keyPathToName[\SplashDependency.blockUserUseCase] = "blockUserUseCase-BlockUserUseCase"
+        keyPathToName[\SplashDependency.autoLoginUseCase] = "autoLoginUseCase-AutoLoginUseCase"
     }
 }
 
