@@ -33,12 +33,25 @@ extension AppComponent {
     public var blocksRepository: BlocksInterface {
         shared { DefaultBlocksRepository(networkService: network) }
     }
+    public var authRepository: AuthInterface {
+        shared {
+            DefaultAuthRepository(
+                network: network,
+                keychainService: keychain,
+                userDefaultsService: userDefaults,
+                tokenService: tokenService
+            )
+        }
+    }
 }
 
 // MARK: - UseCase
 extension AppComponent {
     public var blockUserUseCase: BlockUserUseCase {
         shared { DefaultBlockUserCase(repository: blocksRepository) }
+    }
+    public var autoLoginUseCase: AutoLoginUseCase {
+        shared { DefaultAutoLoginUseCase(repository: authRepository) }
     }
 }
 

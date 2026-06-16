@@ -9,15 +9,21 @@ import Combine
 import UIKit
 
 import PresentationKit
+import SplashFeatureInterface
 
 public final class SplashViewController: BaseViewController {
     
     private let rootView = SplashView()
     private let viewModel: SplashViewModel
+    private weak var coordinator: SplashCoordinatorProtocol?
     private var cancellables = Set<AnyCancellable>()
     
-    public init(viewModel: SplashViewModel) {
+    public init(
+        viewModel: SplashViewModel,
+        coordinator: SplashCoordinatorProtocol
+    ) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,7 +33,7 @@ public final class SplashViewController: BaseViewController {
     
     public override func viewDidLoad() {
         view = rootView
-//        viewModel.action(.viewDidLoad)
+        viewModel.action(.viewDidLoad)
         bind()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
@@ -36,64 +42,32 @@ public final class SplashViewController: BaseViewController {
                 timeoutFallback()
             }
         }
-        
-        viewModel.test()
     }
 }
 
 extension SplashViewController {
     
     private func bind() {
-//        viewModel.output.autoLoginPublisher
-//            .receive(on: DispatchQueue.main)
-//            .sink { result in
-//                switch result {
-//                case .success:
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                        let nextViewController = ByeBooTabBar()
-//                        
-//                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//                           let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-//                            
-//                            ViewControllerUtils.setRootViewController(
-//                                window: window,
-//                                viewController: nextViewController,
-//                                withAnimation: true
-//                            )
-//                        }
-//                    }
-//                case .failure(_):
-//                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                        let nextViewController = ViewControllerFactory.shared.makeLoginViewController()
-//                        
-//                        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//                           let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-//                            
-//                            ViewControllerUtils.setRootViewController(
-//                                window: window,
-//                                viewController: nextViewController,
-//                                withAnimation: true
-//                            )
-//                        }
-//                    }
-//                }
-//            }
-//            .store(in: &cancellables)
+        viewModel.output.autoLoginPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { result in
+                switch result {
+                case .success:
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                        self?.coordinator?.finished?()
+                    }
+                case .failure(_):
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                        self?.coordinator?.showLogin()
+                    }
+                }
+            }
+            .store(in: &cancellables)
     }
 }
 
 extension SplashViewController {
     private func timeoutFallback() {
-//        let nextViewController = ViewControllerFactory.shared.makeLoginViewController()
-//        
-//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//           let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-//            
-//            ViewControllerUtils.setRootViewController(
-//                window: window,
-//                viewController: nextViewController,
-//                withAnimation: true
-//            )
-//        }
+        coordinator?.showLogin()
     }
 }
