@@ -7,6 +7,8 @@
 
 import UIKit
 
+/// 모든 UIView의 기본 클래스입니다.
+/// 스타일 설정, 계층 구조 설정, 레이아웃 설정을 분리하여 관리할 수 있게 합니다.
 open class BaseView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,12 +22,13 @@ open class BaseView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// UI 컴포넌트 속성 설정 (do 메서드 관련)
+    /// UI 컴포넌트의 속성(폰트, 컬러, 클로저 기반 설정 등)을 정의합니다.
     open func setStyle() {}
     
-    /// UI 위계 설정 (addSubView 등)
+    /// 뷰의 계층 구조(`addSubview`)를 정의합니다.
     open func setUI() {}
     
-    /// 오토레이아웃 설정 (SnapKit 코드 관련)
+    /// 오토레이아웃(`SnapKit` 등)을 정의합니다.
     open func setLayout() {}
 }
+

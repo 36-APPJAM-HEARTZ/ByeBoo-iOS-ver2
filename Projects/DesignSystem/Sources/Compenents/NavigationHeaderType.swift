@@ -9,31 +9,53 @@
 import UIKit
 import SnapKit
 
+/// 네비게이션 바 배경의 스타일을 정의합니다.
 public enum NavigationHeaderType {
+    /// 투명한 배경
     case clear
+    /// 검정색 배경 (grayscale900)
     case black
 }
 
+/// 네비게이션 바의 버튼 구성 타입을 정의합니다.
 public enum NavigationBarType: Equatable {
+    /// 뒤로가기 버튼만 포함
     case back(header: NavigationHeaderType = .clear)
+    /// 뒤로가기 + 메뉴 버튼 포함
     case backAndMenu(header: NavigationHeaderType = .clear)
+    /// 뒤로가기 + 편집 버튼 포함
     case backAndEdit(header: NavigationHeaderType = .clear)
+    /// 타이틀만 포함
     case title(String, header: NavigationHeaderType = .clear)
+    /// 닫기 버튼만 포함
     case close(header: NavigationHeaderType = .clear)
+    /// 타이틀 + 닫기 버튼 포함
     case titleAndClose(String, header: NavigationHeaderType = .clear)
+    /// 타이틀 + 뒤로가기 버튼 포함
     case titleAndBack(String, header: NavigationHeaderType = .clear)
+    /// 편집 + 닫기 버튼 포함
     case editAndClose(header: NavigationHeaderType = .clear)
+    /// 완료 + 뒤로가기 버튼 포함
     case confirmAndBack(String, header: NavigationHeaderType = .clear)
+    /// 버튼 없음
     case none(header: NavigationHeaderType = .clear)
 }
 
+/// ByeBoo 프로젝트 전용 네비게이션 바 생성 및 관리 도구입니다.
 @MainActor
 public struct ByeBooNavigationBar {
     
+    /// 네비게이션 바를 설정하고 아이템을 배치합니다.
+    /// - Parameters:
+    ///   - navigationItem: 설정할 UIViewController의 navigationItem
+    ///   - navigationController: 설정을 적용할 UINavigationController
+    ///   - type: 구성할 바의 타입 (NavigationBarType)
+    ///   - target: 액션을 수신할 객체
+    ///   - action: 기본 액션 (주로 왼쪽 버튼)
+    ///   - secondAction: 보조 액션 (주로 오른쪽 버튼)
     public static func makeNavigationBar(
         navigationItem: UINavigationItem,
         navigationController: UINavigationController?,
-        // TODO: - coordinator에서 NavigationBarType을 결정하도록 수정하기
         type: NavigationBarType,
         target: AnyObject?,           
         action: Selector? = nil,

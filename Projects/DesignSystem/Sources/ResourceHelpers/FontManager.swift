@@ -1,7 +1,22 @@
 
 import UIKit
 
+/// 앱 전체에서 사용하는 폰트 스타일을 관리하는 매니저입니다.
+/// 디자인 가이드에 정의된 텍스트 스타일(Head, Sub, Body, Cap)을 제공합니다.
+///
+/// ### 사용 예시
+/// ```swift
+/// // 1. UILabel에 기본 폰트 적용
+/// label.font = FontManager.head1M24.font
+///
+/// // 2. 행간, 자간이 포함된 AttributedString 적용
+/// label.attributedText = NSAttributedString(
+///     string: "ByeBoo 프로젝트에 오신 것을 환영합니다.",
+///     attributes: FontManager.body1Sb16.attributes
+/// )
+/// ```
 public enum FontManager {
+
     case head1M24
     case head2M22
 
