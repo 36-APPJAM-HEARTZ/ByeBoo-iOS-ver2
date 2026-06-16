@@ -24,4 +24,9 @@ public final class SplashComponent: Component<SplashDependency> {
         
         return SplashViewController(viewModel: viewModel)
     }
+    
+    public func loginViewController(coordinator: SplashCoordinator) -> UIViewController {
+        let viewModel = LoginViewModel()
+        return LoginViewController(viewModel: viewModel)
+    }
 }

@@ -42,9 +42,7 @@ public final class SplashViewModel {
     }
     
     func test() {
-        Task {
-            try await blockUserUseCase.execute(userID: 1)
-        }
+        coordinator?.showLogin()
     }
 }
 
