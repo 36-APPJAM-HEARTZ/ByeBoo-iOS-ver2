@@ -38,6 +38,7 @@ extension SplashCoordinator: SplashCoordinatorProtocol {
     
     public func showLogin() {
         let vc = component.loginViewController(coordinator: self)
+        vc.navigationItem.hidesBackButton = true
         navigationController.pushViewController(vc, animated: false)
     }
 }
