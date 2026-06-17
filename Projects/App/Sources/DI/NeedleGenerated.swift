@@ -1,6 +1,7 @@
 
 
 import Data
+import DataInterface
 import Domain
 import DomainInterface
 import NeedleFoundation
@@ -24,6 +25,15 @@ private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
     var autoLoginUseCase: AutoLoginUseCase {
         return appComponent.autoLoginUseCase
     }
+    var getIsRegisteredUseCase: GetIsRegisteredUseCase {
+        return appComponent.getIsRegisteredUseCase
+    }
+    var socialLoginUseCase: SocialLoginUseCase {
+        return appComponent.socialLoginUseCase
+    }
+    var getUserIDUseCase: GetUserIDUseCase {
+        return appComponent.getUserIDUseCase
+    }
     private let appComponent: AppComponent
     init(appComponent: AppComponent) {
         self.appComponent = appComponent
@@ -45,14 +55,21 @@ extension AppComponent: NeedleFoundation.Registration {
         localTable["network-NetworkService"] = { [unowned self] in self.network as Any }
         localTable["blocksRepository-BlocksInterface"] = { [unowned self] in self.blocksRepository as Any }
         localTable["authRepository-AuthInterface"] = { [unowned self] in self.authRepository as Any }
+        localTable["usersRepository-UsersInterface"] = { [unowned self] in self.usersRepository as Any }
         localTable["blockUserUseCase-BlockUserUseCase"] = { [unowned self] in self.blockUserUseCase as Any }
         localTable["autoLoginUseCase-AutoLoginUseCase"] = { [unowned self] in self.autoLoginUseCase as Any }
+        localTable["getIsRegisteredUseCase-GetIsRegisteredUseCase"] = { [unowned self] in self.getIsRegisteredUseCase as Any }
+        localTable["getUserIDUseCase-GetUserIDUseCase"] = { [unowned self] in self.getUserIDUseCase as Any }
+        localTable["socialLoginUseCase-SocialLoginUseCase"] = { [unowned self] in self.socialLoginUseCase as Any }
         localTable["splashComponent-SplashComponent"] = { [unowned self] in self.splashComponent as Any }
     }
 }
 extension SplashComponent: NeedleFoundation.Registration {
     public func registerItems() {
         keyPathToName[\SplashDependency.autoLoginUseCase] = "autoLoginUseCase-AutoLoginUseCase"
+        keyPathToName[\SplashDependency.getIsRegisteredUseCase] = "getIsRegisteredUseCase-GetIsRegisteredUseCase"
+        keyPathToName[\SplashDependency.socialLoginUseCase] = "socialLoginUseCase-SocialLoginUseCase"
+        keyPathToName[\SplashDependency.getUserIDUseCase] = "getUserIDUseCase-GetUserIDUseCase"
     }
 }
 

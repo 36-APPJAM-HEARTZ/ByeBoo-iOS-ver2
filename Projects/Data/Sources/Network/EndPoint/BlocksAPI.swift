@@ -9,6 +9,8 @@ import Foundation
 
 import Alamofire
 
+import DataInterface
+
 enum BlocksAPI {
     case getBlockList
     case blockUser(userID: Int)

@@ -8,12 +8,11 @@
 import AuthenticationServices
 import Foundation
 
+import FirebaseMessaging
+
 import Core
 import DomainInterface
-
-//
-//import Firebase
-//import FirebaseMessaging
+import DataInterface
 
 public struct DefaultAuthRepository: AuthInterface {
     private let network: NetworkService
@@ -35,71 +34,70 @@ public struct DefaultAuthRepository: AuthInterface {
     
     // MARK: Network
     
-//    func kakaoLogin(platform: LoginPlatform) async throws {
-//        let authorization = try await network.kakaoRequest()
-//        let _ = userDefaultsService.save("KAKAO", key: .loginPlatform)
-//        keychainService.save(key: .authorization, token: authorization)
-//        try await postLogin(platform: platform)
-//    }
-//    
-//    func appleLogin(platform: LoginPlatform) async throws {
-//        let (identityToken, authorizationCode) = try await network.appleRequest()
-//        let _ = userDefaultsService.save("APPLE", key: .loginPlatform)
-//        keychainService.save(key: .authorization, token: identityToken)
-//        keychainService.save(key: .authorizationCode, token: authorizationCode)
-//        try await postLogin(platform: platform)
-//    }
-//    
-//    
-//    private func postLogin(platform: LoginPlatform) async throws {
-//        let loginRequestDTO = LoginRequestDTO(platform: platform.rawValue)
-//        let header: HeaderType
-//        
-//        let loginPlatform: String? = userDefaultsService.load(key: .loginPlatform)
-//        guard let loginPlatform = loginPlatform else { return }
-//        
-//        switch loginPlatform {
-//        case "KAKAO":
-//            ByeBooLogger.debug("카카오 post login")
-//            header = .kakaoLoginHeader(accessToken: keychainService.load(key: .authorization))
-//        case "APPLE":
-//            ByeBooLogger.debug("apple post login")
-//            header = .appleLoginHeader(
-//                acessToken: keychainService.load(key: .authorization),
-//                authorizationCode: keychainService.load(key: .authorizationCode)
-//            )
-//        default:
-//            return
-//        }
-//       
-//        let result = try await network.request(
-//            AuthAPI.login(header: header, requestDTO: loginRequestDTO),
-//            decodingType: PostLoginResponseDTO.self
-//        )
-//        
-//        _ = userDefaultsService.save(result.isRegistered, key: .isRegistered)
-//        _ = userDefaultsService.save(result.name ?? "" , key: .userName)
-//        _ = userDefaultsService.save(result.journey ?? "", key: .journey)
-//        _ = userDefaultsService.save(result.journeyStatus ?? "", key: .journeyStatus)
-//        _ = userDefaultsService.save(result.userId, key: .userID)
-//        
-//        keychainService.save(key: .accessToken, token: result.accessToken)
-//        keychainService.save(key: .refreshToken, token: result.refreshToken)
-//        
-//        keychainService.delete(key: .authorization)
-//        keychainService.delete(key: .authorizationCode)
-//        
-//        do {
-//            let fcmToken = try await Messaging.messaging().token()
-//            let fcmTokenDTO = FCMTokenDTO(token: fcmToken)
-//            try await network.request(
-//                NotificationAPI.saveToken(dto: fcmTokenDTO)
-//            )
-//        } catch (let error) {
-//            ByeBooLogger.error(error)
-//        }
-//    }
-//    
+    public func kakaoLogin(platform: LoginPlatform) async throws {
+        let authorization = try await network.kakaoRequest()
+        let _ = userDefaultsService.save("KAKAO", key: .loginPlatform)
+        keychainService.save(key: .authorization, token: authorization)
+        try await postLogin(platform: platform)
+    }
+    
+    public func appleLogin(platform: LoginPlatform) async throws {
+        let (identityToken, authorizationCode) = try await network.appleRequest()
+        let _ = userDefaultsService.save("APPLE", key: .loginPlatform)
+        keychainService.save(key: .authorization, token: identityToken)
+        keychainService.save(key: .authorizationCode, token: authorizationCode)
+        try await postLogin(platform: platform)
+    }
+    
+    private func postLogin(platform: LoginPlatform) async throws {
+        let loginRequestDTO = LoginRequestDTO(platform: platform.rawValue)
+        let header: HeaderType
+        
+        let loginPlatform: String? = userDefaultsService.load(key: .loginPlatform)
+        guard let loginPlatform = loginPlatform else { return }
+        
+        switch loginPlatform {
+        case "KAKAO":
+            ByeBooLogger.debug("카카오 post login")
+            header = .kakaoLoginHeader(accessToken: keychainService.load(key: .authorization))
+        case "APPLE":
+            ByeBooLogger.debug("apple post login")
+            header = .appleLoginHeader(
+                acessToken: keychainService.load(key: .authorization),
+                authorizationCode: keychainService.load(key: .authorizationCode)
+            )
+        default:
+            return
+        }
+       
+        let result = try await network.request(
+            AuthAPI.login(header: header, requestDTO: loginRequestDTO),
+            decodingType: PostLoginResponseDTO.self
+        )
+        
+        _ = userDefaultsService.save(result.isRegistered, key: .isRegistered)
+        _ = userDefaultsService.save(result.name ?? "" , key: .userName)
+        _ = userDefaultsService.save(result.journey ?? "", key: .journey)
+        _ = userDefaultsService.save(result.journeyStatus ?? "", key: .journeyStatus)
+        _ = userDefaultsService.save(result.userId, key: .userID)
+        
+        keychainService.save(key: .accessToken, token: result.accessToken)
+        keychainService.save(key: .refreshToken, token: result.refreshToken)
+        
+        keychainService.delete(key: .authorization)
+        keychainService.delete(key: .authorizationCode)
+        
+        do {
+            let fcmToken = try await Messaging.messaging().token()
+            let fcmTokenDTO = FCMTokenDTO(token: fcmToken)
+            try await network.request(
+                NotificationAPI.saveToken(dto: fcmTokenDTO)
+            )
+        } catch (let error) {
+            ByeBooLogger.error(error)
+        }
+    }
+    
     public func autoLogin() async throws -> Bool {
         let isRegistered: Bool = userDefaultsService.load(key: .isRegistered) ?? false
         ByeBooLogger.debug("온보딩 여부 \(isRegistered)")
@@ -183,79 +181,3 @@ extension DefaultAuthRepository {
         }
     }
 }
-
-//final class MockAuthRepository: AuthInterface {
-//    
-//    private(set) var kakaoLoginCalled = false
-//    private(set) var appleLoginCalled = false
-//    private(set) var isAutoLoginCalled = false
-//    private(set) var isLogoutCalled = false
-//    private(set) var isWithdrawCalled = false
-//    
-//    private let network: NetworkService
-//    private let userDefaultsService: UserDefaultService
-//    private let keychainService: KeychainService
-//    
-//    init(
-//        network: NetworkService,
-//        userDefaultsService: UserDefaultService,
-//        keychainService: KeychainService
-//    ) {
-//        self.network = network
-//        self.userDefaultsService = userDefaultsService
-//        self.keychainService = keychainService
-//    }
-//    
-//    func kakaoLogin(platform: LoginPlatform) async throws  {
-//        kakaoLoginCalled = true
-//        
-//        let authorization = try await network.kakaoRequest()
-//        let _ = userDefaultsService.save("KAKAO", key: .loginPlatform)
-//        keychainService.save(key: .authorization, token: authorization)
-//        try await postLogin(platform: platform)
-//    }
-//    
-//    func appleLogin(platform: LoginPlatform) async throws {
-//        appleLoginCalled = true
-//        
-//        let (identityToken, authorizationCode) = try await network.appleRequest()
-//        let _ = userDefaultsService.save("APPLE", key: .loginPlatform)
-//        keychainService.save(key: .authorization, token: identityToken)
-//        keychainService.save(key: .authorizationCode, token: authorizationCode)
-//        try await postLogin(platform: platform)
-//    }
-//    
-//    func autoLogin() async throws -> Bool {
-//        isAutoLoginCalled = true
-//        return true
-//    }
-//    
-//    func logout() async throws -> Bool {
-//        isLogoutCalled = true
-//        return true
-//    }
-//    
-//    func withdraw() async throws -> Bool {
-//        isWithdrawCalled = true
-//        return true
-//    }
-//    
-//    func clearKeychain() {}
-//    
-//    private func postLogin(platform: LoginPlatform) async throws {
-//        let postLoginResult = PostLoginResponseDTO.stub()
-//        
-//        _ = userDefaultsService.save(postLoginResult.isRegistered, key: .isRegistered)
-//        _ = userDefaultsService.save(postLoginResult.name ?? "" , key: .userName)
-//        _ = userDefaultsService.save(postLoginResult.journey ?? "", key: .journey)
-//        _ = userDefaultsService.save(postLoginResult.journeyStatus ?? "", key: .journeyStatus)
-//        _ = userDefaultsService.save(postLoginResult.userId, key: .userID)
-//        
-//        keychainService.save(key: .accessToken, token: postLoginResult.accessToken)
-//        keychainService.save(key: .refreshToken, token: postLoginResult.refreshToken)
-//        
-//        keychainService.delete(key: .authorization)
-//        keychainService.delete(key: .authorizationCode)
-//    }
-//}
-//
