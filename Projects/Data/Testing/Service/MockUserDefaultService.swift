@@ -5,6 +5,7 @@
 //  Created by 최주리 on 6/17/26.
 //
 
+import DataInterface
 
 public final class MockUserDefaultService: UserDefaultService {
     
