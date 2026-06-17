@@ -12,16 +12,22 @@ import UIKit
 import Mixpanel
 
 import PresentationKit
+import Core
+import SplashFeatureInterface
 
 final class LoginViewController: BaseViewController {
     
     private let rootView = LoginView()
     private let viewModel: LoginViewModel
+    private weak var coordinator: SplashCoordinatorProtocol?
     private var cancellables = Set<AnyCancellable>()
-//    private var platform: LoginPlatform = .KAKAO
     
-    init(viewModel: LoginViewModel) {
+    init(
+        viewModel: LoginViewModel,
+        coordinator: SplashCoordinatorProtocol
+    ) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -66,67 +72,38 @@ extension LoginViewController{
     @objc
     private func kakaoLoginButtonDidTap() {
         rootView.kakaoLoginButton.isUserInteractionEnabled = false
-//        self.platform = .KAKAO
-//        viewModel.action(.socialLoginButtonDidTap(platform: .KAKAO))
+        viewModel.action(.socialLoginButtonDidTap(platform: .KAKAO))
     }
     
     @objc
     private func appleLoginButtonDidTap() {
         rootView.appleLoginButton.isUserInteractionEnabled = false
-//        self.platform = .APPLE
-//        viewModel.action(.socialLoginButtonDidTap(platform: .APPLE))
+        viewModel.action(.socialLoginButtonDidTap(platform: .APPLE))
     }
 }
 
 extension LoginViewController {
     private func bind() {
-//        viewModel.output.isRegisteredPublisher
-//            .receive(on: DispatchQueue.main)
-//            .sink { result in
-//                self.rootView.appleLoginButton.isUserInteractionEnabled = true
-//                self.rootView.kakaoLoginButton.isUserInteractionEnabled = true
-//                
-//                switch result {
-//                case .success(let isRegisterd):
-//                    ByeBooLogger.debug("온보딩 완료 여부 \(isRegisterd)")
-//                    
-//                    let nextViewController: UIViewController
-//                    if isRegisterd {
-//                        nextViewController = ByeBooTabBar()
-//                    } else {
-//                        nextViewController = UINavigationController(rootViewController: ViewControllerFactory.shared.makeTermsViewController())
-//                    }
-//                    
-//                    if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//                       let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-//                        
-//                        ViewControllerUtils.setRootViewController(
-//                            window: window,
-//                            viewController: nextViewController,
-//                            withAnimation: true
-//                        )
-//                    }
-//                    
-//                case .failure(let error):
-//                    ByeBooLogger.debug(error)
-//                }
-//            }
-//            .store(in: &cancellables)
-//        
-//        viewModel.output.userIDPublisher
-//            .sink { [weak self] id in
-//                Mixpanel.mainInstance().identify(distinctId: String(id))
-//                
-//                let property = LoginEvents.LoginProperty(
-//                    isLoginComplete: true,
-//                    logintype: self?.platform.mixpanelKey ?? LoginPlatform.KAKAO.mixpanelKey
-//                )
-//                Mixpanel.mainInstance().track(
-//                    event: LoginEvents.Name.login,
-//                    properties: property.dictionary
-//                )
-//            }
-//            .store(in: &cancellables)
+        viewModel.output.isRegisteredPublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] result in
+                self?.rootView.appleLoginButton.isUserInteractionEnabled = true
+                self?.rootView.kakaoLoginButton.isUserInteractionEnabled = true
+                
+                switch result {
+                case .success(let isRegisterd):
+                    ByeBooLogger.debug("온보딩 완료 여부 \(isRegisterd)")
+                    
+                    if isRegisterd {
+                        self?.coordinator?.finished?()
+                    } else {
+                        // onboarding으로 연결
+                    }
+                case .failure(let error):
+                    ByeBooLogger.debug(error)
+                }
+            }
+            .store(in: &cancellables)
     }
     
 }

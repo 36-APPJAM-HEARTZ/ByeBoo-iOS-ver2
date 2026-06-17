@@ -22,6 +22,7 @@ public extension Project {
         internalDependencies: [TargetDependency] = [],
         externalDependencies: [TargetDependency] = [],
         interfaceDependencies: [TargetDependency] = [],
+        unitTestDependencies: [TargetDependency] = [],
         hasResources: Bool = false
     ) -> Project {
         
@@ -159,7 +160,8 @@ public extension Project {
                                     ])
                                 ])
                             ])
-                        ])
+                        ]),
+                        "UIDesignRequiresCompatibility": .boolean(true),
                     ]),
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],

@@ -1,6 +1,7 @@
 import NeedleFoundation
 
 import Data
+import DataInterface
 import DomainInterface
 import Domain
 
@@ -33,12 +34,43 @@ extension AppComponent {
     public var blocksRepository: BlocksInterface {
         shared { DefaultBlocksRepository(networkService: network) }
     }
+    public var authRepository: AuthInterface {
+        shared {
+            DefaultAuthRepository(
+                network: network,
+                keychainService: keychain,
+                userDefaultsService: userDefaults,
+                tokenService: tokenService
+            )
+        }
+    }
+    public var usersRepository: UsersInterface {
+        shared {
+            DefaultUsersRepository(
+                network: network,
+                userDefaultsService: userDefaults,
+                keychainService: keychain
+            )
+        }
+    }
 }
 
 // MARK: - UseCase
 extension AppComponent {
     public var blockUserUseCase: BlockUserUseCase {
         shared { DefaultBlockUserCase(repository: blocksRepository) }
+    }
+    public var autoLoginUseCase: AutoLoginUseCase {
+        shared { DefaultAutoLoginUseCase(repository: authRepository) }
+    }
+    public var getIsRegisteredUseCase: GetIsRegisteredUseCase {
+        shared { DefaultGetIsRegisteredUseCase(repository: usersRepository) }
+    }
+    public var getUserIDUseCase: GetUserIDUseCase {
+        shared { DefaultGetUserIDUseCase(repository: usersRepository) }
+    }
+    public var socialLoginUseCase: SocialLoginUseCase {
+        shared { DefaultSocialLoginUseCase(repository: authRepository) }
     }
 }
 
