@@ -8,13 +8,9 @@
 import ProjectDescription
 import EnvPlugin
 import DependencyPlugin
+import ConfigPlugin
 
 public extension Project {
-    private static let baseSettings: SettingsDictionary = [
-        "SWIFT_VERSION": "6.0",
-//        "SWIFT_UPCOMING_FEATURE_STRICT_CONCURRENCY": "complete", // 엄격한 동시성 체크 활성화
-        "SWIFT_ACTIVE_COMPILATION_CONDITIONS": "$(inherited) SWIFT6"
-    ]
     
     static func makeModule(
         name: String,
@@ -42,7 +38,7 @@ public extension Project {
                     deploymentTargets: deploymentTargets,
                     sources: ["Interface/**"],
                     dependencies: interfaceDependencies,
-                    settings: .settings(base: baseSettings)
+                    settings: .settings(base: ConfigPlugin.baseSettings)
                 )
             )
         }
@@ -59,7 +55,7 @@ public extension Project {
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],
                     dependencies: internalDependencies + externalDependencies + (targets.contains(.interface) ? [.target(name: "\(name)Interface")] : []),
-                    settings: .settings(base: baseSettings)
+                    settings: .settings(base: ConfigPlugin.baseSettings)
                 )
             )
         }
@@ -75,7 +71,7 @@ public extension Project {
                     deploymentTargets: deploymentTargets,
                     sources: ["Testing/**"],
                     dependencies: targets.contains(.interface) ? [.target(name: "\(name)Interface")] : [],
-                    settings: .settings(base: baseSettings)
+                    settings: .settings(base: ConfigPlugin.baseSettings)
                 )
             )
         }
@@ -94,7 +90,7 @@ public extension Project {
                         .target(name: name),
                         targets.contains(.testing) ? .target(name: "\(name)Testing") : nil
                     ].compactMap { $0 },
-                    settings: .settings(base: baseSettings)
+                    settings: .settings(base: ConfigPlugin.baseSettings)
                 )
             )
         }
@@ -128,7 +124,7 @@ public extension Project {
                         .target(name: name),
                         targets.contains(.testing) ? .target(name: "\(name)Testing") : nil
                     ].compactMap { $0 },
-                    settings: .settings(base: baseSettings)
+                    settings: .settings(base: ConfigPlugin.baseSettings)
                 )
             )
         }
@@ -146,9 +142,12 @@ public extension Project {
                     name: name,
                     destinations: .iOS,
                     product: .app,
-                    bundleId: "\(bundlePrefix).\(name)",
+                    bundleId: "$(PRODUCT_BUNDLE_IDENTIFIER)",
                     deploymentTargets: deploymentTargets,
                     infoPlist: .extendingDefault(with: [
+                        "CFBundleDisplayName": "$(APP_NAME)",
+                        "BASE_URL": "$(BASE_URL)",
+                        "KAKAO_NATIVE_APP_KEY": "$(KAKAO_NATIVE_APP_KEY)",
                         "UILaunchScreen": .dictionary([:]),
                         "UIApplicationSceneManifest": .dictionary([
                             "UIApplicationSupportsMultipleScenes": .boolean(false),
@@ -162,12 +161,31 @@ public extension Project {
                             ])
                         ]),
                         "UIDesignRequiresCompatibility": .boolean(true),
+                        "LSApplicationQueriesSchemes": .array([
+                            .string("kakaokompassauth"),
+                            .string("kakaolink")
+                        ]),
+                        "CFBundleURLTypes": .array([
+                            .dictionary([
+                                "CFBundleURLSchemes": .array([.string("kakao$(KAKAO_NATIVE_APP_KEY)")])
+                            ])
+                        ])
+                        
                     ]),
                     sources: ["Sources/**"],
                     resources: hasResources ? ["Resources/**"] : [],
+                    entitlements: .file(path: "Entitlements/ByeBoo-Dev.entitlements"),
                     scripts: [needleScript],
                     dependencies: internalDependencies + externalDependencies + [.SPM.Needle],
-                    settings: .settings(base: baseSettings)
+                    settings: .settings(
+                        base: ConfigPlugin.baseSettings.merging([
+                            "ASSETCATALOG_COMPILER_APPICON_NAME": "AppIcon"
+                        ]),
+                        configurations: [
+                            .debug(name: "Debug", settings: ["CODE_SIGN_ENTITLEMENTS": "$(SRCROOT)/Entitlements/ByeBoo-Dev.entitlements"]),
+                            .release(name: "Release", settings: ["CODE_SIGN_ENTITLEMENTS": "$(SRCROOT)/Entitlements/ByeBoo-Prod.entitlements"])
+                        ]
+                    )
                 )
             )
         }
@@ -175,6 +193,7 @@ public extension Project {
         
         return Project(
             name: name,
+            settings: ConfigPlugin.projectSettings,
             targets: projectTargets
         )
     }
