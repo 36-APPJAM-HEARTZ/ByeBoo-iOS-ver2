@@ -10,12 +10,7 @@ import Security
 
 import Core
 
-public enum KeyType: String, CaseIterable {
-    case authorization
-    case accessToken
-    case refreshToken
-    case authorizationCode
-}
+import DataInterface
 
 enum KeychainManager {
     static func save(key: KeyType, token: String) {

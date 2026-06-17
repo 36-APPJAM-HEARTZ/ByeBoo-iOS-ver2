@@ -59,7 +59,7 @@ public protocol EndPoint {
 }
 
 
-extension EndPoint {
+public extension EndPoint {
     var requestURL: URL {
         let baseURL = ConfigManager.baseURL
         let urlString = baseURL + basePath + path

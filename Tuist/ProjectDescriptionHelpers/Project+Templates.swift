@@ -22,6 +22,7 @@ public extension Project {
         internalDependencies: [TargetDependency] = [],
         externalDependencies: [TargetDependency] = [],
         interfaceDependencies: [TargetDependency] = [],
+        unitTestDependencies: [TargetDependency] = [],
         hasResources: Bool = false
     ) -> Project {
         

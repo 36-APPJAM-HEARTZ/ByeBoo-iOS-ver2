@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 
 import Core
+import DataInterface
 
 public final class NetworkInterceptor: RequestInterceptor {
     private let tokenService: TokenService

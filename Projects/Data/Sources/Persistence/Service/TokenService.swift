@@ -10,10 +10,7 @@ import Foundation
 import Alamofire
 
 import Core
-
-public protocol TokenService: Sendable {
-    func reissue() async throws
-}
+import DataInterface
 
 
 public actor DefaultTokenService: TokenService {
