@@ -70,6 +70,8 @@ extension AppCoordinator {
         
         coordinator.finished = { [weak self] in
             self?.showSplash()
+            
+            self?.remove(child: coordinator)
         }
         
         window.rootViewController = tabBarController
