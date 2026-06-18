@@ -1,4 +1,9 @@
 
 import Foundation
 
-public protocol MainTabFeatureInterfaceable {}
+import PresentationKit
+
+@MainActor
+public protocol MainTabCoordinatorProtocol: FinishableProtocol {
+    func showTabBar()
+}

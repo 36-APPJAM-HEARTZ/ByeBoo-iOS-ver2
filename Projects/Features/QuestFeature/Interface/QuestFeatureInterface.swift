@@ -1,4 +1,9 @@
 
 import Foundation
 
-public protocol QuestFeatureInterfaceable {}
+import PresentationKit
+
+@MainActor
+public protocol QuestCoordinatorProtocol: FinishableProtocol {
+    func showQuestMain()
+}

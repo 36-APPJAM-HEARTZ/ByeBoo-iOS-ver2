@@ -1,4 +1,9 @@
 
 import Foundation
 
-public protocol HomeFeatureInterfaceable {}
+import PresentationKit
+
+@MainActor
+public protocol HomeCoordinatorProtocol: FinishableProtocol {
+    func showHome()
+}

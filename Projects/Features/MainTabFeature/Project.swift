@@ -19,7 +19,11 @@ let project = Project.makeModule(
     ],
     interfaceDependencies: [
         .Project.Module.DomainInterface,
-        .Project.Module.PresentationKit
+        .Project.Module.PresentationKit,
+        
+        .Project.Features.Home,
+        .Project.Features.Quest,
+        .Project.Features.MyPage
     ],
     hasResources: true
 )

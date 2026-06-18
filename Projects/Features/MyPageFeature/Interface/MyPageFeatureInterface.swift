@@ -1,4 +1,9 @@
 
 import Foundation
 
-public protocol MyPageFeatureInterfaceable {}
+import PresentationKit
+
+@MainActor
+public protocol MyPageCoordinatorProtocol: FinishableProtocol {
+    func showMypage()
+}

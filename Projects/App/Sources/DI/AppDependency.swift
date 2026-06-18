@@ -6,6 +6,7 @@ import DomainInterface
 import Domain
 
 import SplashFeature
+import MainTabFeature
 
 public final class AppComponent: BootstrapComponent {
     // MARK: - Persistence
@@ -78,6 +79,10 @@ extension AppComponent {
 extension AppComponent {
     public var splashComponent: SplashComponent {
         SplashComponent(parent: self)
+    }
+    
+    public var mainTabComponent: MainTabComponent {
+        MainTabComponent(parent: self)
     }
 }
 

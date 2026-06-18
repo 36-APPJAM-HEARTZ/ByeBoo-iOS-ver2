@@ -33,7 +33,7 @@ public final class SplashCoordinator: Coordinator {
 extension SplashCoordinator: SplashCoordinatorProtocol {
     public func showSplash() {
         let vc = component.splashViewController(coordinator: self)
-        navigationController.pushViewController(vc, animated: false)
+        navigationController.setViewControllers([vc], animated: false)
     }
     
     public func showLogin() {
