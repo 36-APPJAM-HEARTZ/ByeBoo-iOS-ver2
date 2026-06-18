@@ -11,6 +11,8 @@ import PresentationKit
 import SplashFeature
 import MainTabFeature
 
+import Data
+
 final class AppCoordinator: Coordinator {
     var childCoordinators: [any Coordinator] = []
     private let window: UIWindow
@@ -59,7 +61,22 @@ extension AppCoordinator {
 extension AppCoordinator {
     @MainActor
     func showTabBar() {
+        let coordinator = MainTabCoordinator(
+            tabBarController: tabBarController,
+            component: dependency.mainTabComponent
+        )
+        
+        add(child: coordinator)
+        
+        coordinator.finished = { [weak self] in
+            self?.showSplash()
+            
+            self?.remove(child: coordinator)
+        }
+        
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
+        
+        coordinator.start()
     }
 }

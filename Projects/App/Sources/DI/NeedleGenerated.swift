@@ -4,7 +4,14 @@ import Data
 import DataInterface
 import Domain
 import DomainInterface
+import HomeFeature
+import HomeFeatureInterface
+import MainTabFeature
+import MyPageFeature
+import MyPageFeatureInterface
 import NeedleFoundation
+import QuestFeature
+import QuestFeatureInterface
 import SplashFeature
 import UIKit
 
@@ -43,6 +50,50 @@ private class SplashDependencye0cb7136f2ec3edfd60aProvider: SplashDependency {
 private func factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5(_ component: NeedleFoundation.Scope) -> AnyObject {
     return SplashDependencye0cb7136f2ec3edfd60aProvider(appComponent: parent1(component) as! AppComponent)
 }
+private class MainTabDependency2826cdb310ed0b17a725Provider: MainTabDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent
+private func factory1ab5a747ddf21e1393f9e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MainTabDependency2826cdb310ed0b17a725Provider()
+}
+private class MyPageDependencyed3a2dbc57f299854a2fProvider: MyPageDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->MyPageComponent
+private func factory58ec266675536a48e110e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return MyPageDependencyed3a2dbc57f299854a2fProvider()
+}
+private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->HomeComponent
+private func factoryd99ae4afe81775bf7b17e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return HomeDependency69aec7ecd6b5263bd0e9Provider()
+}
+private class QuestDependency802a1d0aa327823b4d70Provider: QuestDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->QuestComponent
+private func factory86827eb61c66cf97696be3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return QuestDependency802a1d0aa327823b4d70Provider()
+}
 
 #else
 extension AppComponent: NeedleFoundation.Registration {
@@ -62,6 +113,7 @@ extension AppComponent: NeedleFoundation.Registration {
         localTable["getUserIDUseCase-GetUserIDUseCase"] = { [unowned self] in self.getUserIDUseCase as Any }
         localTable["socialLoginUseCase-SocialLoginUseCase"] = { [unowned self] in self.socialLoginUseCase as Any }
         localTable["splashComponent-SplashComponent"] = { [unowned self] in self.splashComponent as Any }
+        localTable["mainTabComponent-MainTabComponent"] = { [unowned self] in self.mainTabComponent as Any }
     }
 }
 extension SplashComponent: NeedleFoundation.Registration {
@@ -70,6 +122,29 @@ extension SplashComponent: NeedleFoundation.Registration {
         keyPathToName[\SplashDependency.getIsRegisteredUseCase] = "getIsRegisteredUseCase-GetIsRegisteredUseCase"
         keyPathToName[\SplashDependency.socialLoginUseCase] = "socialLoginUseCase-SocialLoginUseCase"
         keyPathToName[\SplashDependency.getUserIDUseCase] = "getUserIDUseCase-GetUserIDUseCase"
+    }
+}
+extension MainTabComponent: NeedleFoundation.Registration {
+    public func registerItems() {
+
+        localTable["homeComponent-HomeComponent"] = { [unowned self] in self.homeComponent as Any }
+        localTable["questComponent-QuestComponent"] = { [unowned self] in self.questComponent as Any }
+        localTable["mypageComponent-MyPageComponent"] = { [unowned self] in self.mypageComponent as Any }
+    }
+}
+extension MyPageComponent: NeedleFoundation.Registration {
+    public func registerItems() {
+
+    }
+}
+extension HomeComponent: NeedleFoundation.Registration {
+    public func registerItems() {
+
+    }
+}
+extension QuestComponent: NeedleFoundation.Registration {
+    public func registerItems() {
+
     }
 }
 
@@ -90,6 +165,10 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
 @inline(never) private func register1() {
     registerProviderFactory("^->AppComponent", factoryEmptyDependencyProvider)
     registerProviderFactory("^->AppComponent->SplashComponent", factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5)
+    registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent->MyPageComponent", factory58ec266675536a48e110e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent->HomeComponent", factoryd99ae4afe81775bf7b17e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent->QuestComponent", factory86827eb61c66cf97696be3b0c44298fc1c149afb)
 }
 #endif
 

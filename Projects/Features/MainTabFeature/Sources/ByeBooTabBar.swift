@@ -17,42 +17,7 @@ public final class ByeBooTabBar: UITabBarController {
         view.backgroundColor = .grayscale900
         
         setValue(ByeBooTabBarView(), forKey: "tabBar")
-        setViewController()
         setViewControllerAppearance()
-    }
-    
-    
-    private func setViewController() {
-        
-//        let homeViewController = ViewControllerFactory.shared.makeHomeViewController()
-//        let questViewController = ViewControllerFactory.shared.makeParentQuestViewController()
-//        let myPageViewController = ViewControllerFactory.shared.makeMyPageViewController()
-//        
-        let homeViewController = UIViewController()
-        let questViewController = UIViewController()
-        let myPageViewController = UIViewController()
-        
-        homeViewController.view.backgroundColor = .red
-        questViewController.view.backgroundColor = .yellow
-        myPageViewController.view.backgroundColor = .blue
-        
-        self.viewControllers = [
-            createViewController(
-                for: homeViewController,
-                title: "홈",
-                imageName: .homeOff
-            ),
-            createViewController(
-                for: questViewController,
-                title: "퀘스트",
-                imageName: .questOff
-            ),
-            createViewController(
-                for: myPageViewController,
-                title: "내 정보",
-                imageName: .userOff
-            )
-        ]
     }
     
     private func setViewControllerAppearance() {
@@ -79,15 +44,6 @@ public final class ByeBooTabBar: UITabBarController {
         appearance.stackedLayoutAppearance = itemAppearance
         tabBar.standardAppearance = appearance
         tabBar.scrollEdgeAppearance = appearance
-    }
-    
-    private func createViewController(for rootViewController: UIViewController,
-                                      title: String,
-                                      imageName: UIImage) -> UIViewController {
-        let viewController = UINavigationController(rootViewController: rootViewController)
-        rootViewController.tabBarItem.title = title
-        rootViewController.tabBarItem.image = imageName.withRenderingMode(.alwaysTemplate)
-        return viewController
     }
 }
 
