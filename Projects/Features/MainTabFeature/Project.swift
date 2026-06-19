@@ -23,7 +23,8 @@ let project = Project.makeModule(
         
         .Project.Features.Home,
         .Project.Features.Quest,
-        .Project.Features.MyPage
+        .Project.Features.MyPage,
+        .Project.Features.Tutorial
     ],
     hasResources: true
 )

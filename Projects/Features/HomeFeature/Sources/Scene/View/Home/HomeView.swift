@@ -10,6 +10,7 @@ import UIKit
 import Lottie
 
 import PresentationKit
+import DesignSystem
 import DomainInterface
 
 final class HomeView: BaseView {

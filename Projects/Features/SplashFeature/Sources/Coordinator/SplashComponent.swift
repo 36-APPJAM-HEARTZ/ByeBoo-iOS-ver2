@@ -10,6 +10,7 @@ import UIKit
 import NeedleFoundation
 
 import DomainInterface
+import SplashFeatureInterface
 
 public protocol SplashDependency: Dependency {
     var autoLoginUseCase: AutoLoginUseCase { get }
@@ -27,7 +28,7 @@ public final class SplashComponent: Component<SplashDependency> {
         return SplashViewController(viewModel: viewModel, coordinator: coordinator)
     }
     
-    public func loginViewController(coordinator: SplashCoordinator) -> UIViewController {
+    public func loginViewController(coordinator: SplashCoordinatorProtocol) -> UIViewController {
         let viewModel = LoginViewModel(
             socialLoginUseCase: dependency.socialLoginUseCase,
             getIsRegisteredUseCase: dependency.getIsRegisteredUseCase,

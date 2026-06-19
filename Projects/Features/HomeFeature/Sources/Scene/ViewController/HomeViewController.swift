@@ -13,10 +13,12 @@ import Mixpanel
 import Core
 import PresentationKit
 import DomainInterface
+import HomeFeatureInterface
 
 final class HomeViewController: BaseViewController {
     
     private let viewModel: HomeViewModel
+    private weak var coordinator: HomeCoordinatorProtocol?
     private var cancellables = Set<AnyCancellable>()
     private let rootView = HomeView()
     
@@ -26,8 +28,12 @@ final class HomeViewController: BaseViewController {
     private var isAnimating: Bool = false
     private var isExistNotice: Bool?
     
-    init(viewModel: HomeViewModel) {
+    init(
+        viewModel: HomeViewModel,
+        coordinator: HomeCoordinatorProtocol
+    ) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -101,11 +107,12 @@ extension HomeViewController {
     private func headerDidTap() {
         switch state {
         case .beforeJourneyStart, .beforeQuest, .afterQuest:
-            ViewControllerUtils.changeSelectedIndex(index: 1)
+            coordinator?.showQuestTab()
         case .afterJourney:
-            let viewController = ViewControllerFactory.shared.makeNewJourneySelectViewController()
-            viewController.hidesBottomBarWhenPushed = true
-            navigationController?.pushViewController(viewController, animated: false)
+//            let viewController = ViewControllerFactory.shared.makeNewJourneySelectViewController()
+//            viewController.hidesBottomBarWhenPushed = true
+//            navigationController?.pushViewController(viewController, animated: false)
+            break
         }
     }
     
@@ -116,21 +123,20 @@ extension HomeViewController {
         
         Mixpanel.mainInstance().track(event: HomeEvents.Name.tutorialIconClick)
         
-        let tutorialViewController = TutorialModalViewController()
-        tutorialViewController.navigationItem.hidesBackButton = true
-        tutorialViewController.hidesBottomBarWhenPushed = true
-        self.navigationController?.pushViewController(tutorialViewController, animated: false)
+        coordinator?.showTutorial()
     }
     
     @objc
     private func noticeButtonDidTap() {
         guard let isExistNotice else { return }
         
-        let viewController = ViewControllerFactory.shared.makeNoticesViewController(isExistNotice: isExistNotice)
-        viewController.hidesBottomBarWhenPushed = true
+//        let viewController = ViewControllerFactory.shared.makeNoticesViewController(isExistNotice: isExistNotice)
+//        viewController.hidesBottomBarWhenPushed = true
+//        
+//        self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        self.navigationController?.pushViewController(viewController, animated: false)
         
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-        self.navigationController?.pushViewController(viewController, animated: false)
+        coordinator?.showNotice(isExist: isExistNotice)
     }
     
     @objc
@@ -162,7 +168,7 @@ extension HomeViewController/*: ToastPresentable, ToastErrorHandler*/ {
                     self?.rootView.updateOnboardingText(dialogues.dialogue)
                 case .failure(let error):
 //                    self?.handleError(error)
-                    print("")
+                    break
                 }
             }
             .store(in: &cancellables)
@@ -191,7 +197,7 @@ extension HomeViewController/*: ToastPresentable, ToastErrorHandler*/ {
                     self?.state = state.currentStatus
                 case (_, .failure(let error), _), (_, _, .failure(let error)):
 //                    self?.handleError(error)
-                    print("")
+                    break
                 default:
                     ByeBooLogger.error(ByeBooError.unknownError)
                 }

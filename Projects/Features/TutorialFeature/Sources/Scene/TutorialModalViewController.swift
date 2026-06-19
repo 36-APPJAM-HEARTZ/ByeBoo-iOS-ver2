@@ -5,14 +5,29 @@
 //  Created by APPLE on 8/23/25.
 //
 
+import Foundation
+
 import Mixpanel
 
 import PresentationKit
 import DesignSystem
+import TutorialFeatureInterface
 
 public final class TutorialModalViewController: BaseViewController {
     
+    private weak var coordinator: TutorialCoordinatorProtocol?
+    
     private let rootView = TutorialModalView()
+    
+    public init(coordinator: TutorialCoordinatorProtocol? = nil) {
+        self.coordinator = coordinator
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     public override func loadView() {
         view = rootView

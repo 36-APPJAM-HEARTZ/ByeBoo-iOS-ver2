@@ -73,6 +73,24 @@ extension AppComponent {
     public var socialLoginUseCase: SocialLoginUseCase {
         shared { DefaultSocialLoginUseCase(repository: authRepository) }
     }
+    public var fetchCharacterDialogueUseCase: FetchCharacterDialogueUseCase {
+        shared { DefaultFetchCharacterDialogueUseCase(repository: usersRepository) }
+    }
+    public var fetchQuestStatusUseCase: FetchQuestStatusUseCase {
+        shared { DefaultFetchQuestStatusUseCase(repository: usersRepository) }
+    }
+    public var fetchUserJourneyUseCase: FetchUserJourneyUseCase {
+        shared { DefaultFetchUserJourneyUseCase(repository: usersRepository) }
+    }
+    public var getHelperUseCase: GetHelperUseCase {
+        shared { DefaultGetHelperUseCase(repository: usersRepository) }
+    }
+    public var getUserNameUseCase: GetUserNameUseCase {
+        shared { DefaultGetUserNameUseCase(repository: usersRepository) }
+    }
+    public var setHelperUseCase: SetHelperUseCase {
+        shared { DefaultSetHelperUseCase(repository: usersRepository) }
+    }
 }
 
 // MARK: - Features

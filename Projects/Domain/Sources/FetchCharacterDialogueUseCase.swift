@@ -7,14 +7,14 @@
 
 import DomainInterface
 
-struct DefaultFetchCharacterDialogueUseCase: FetchCharacterDialogueUseCase {
+public struct DefaultFetchCharacterDialogueUseCase: FetchCharacterDialogueUseCase {
     private let repository: UsersInterface
     
-    init(repository: UsersInterface) {
+    public init(repository: UsersInterface) {
         self.repository = repository
     }
     
-    func execute() async throws -> DialogueEntity {
+    public func execute() async throws -> DialogueEntity {
         return try await repository.fetchCharacterDialogue()
     }
 }

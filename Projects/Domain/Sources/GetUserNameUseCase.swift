@@ -7,14 +7,14 @@
 
 import DomainInterface
 
-struct DefaultGetUserNameUseCase: GetUserNameUseCase {
+public struct DefaultGetUserNameUseCase: GetUserNameUseCase {
     private let repository: UsersInterface
     
-    init(repository: UsersInterface) {
+    public init(repository: UsersInterface) {
         self.repository = repository
     }
     
-    func execute() -> String {
+    public func execute() -> String {
         return repository.getUserName() ?? "이름"
     }
 }

@@ -56,19 +56,19 @@ extension HomeOnboardingViewController {
             let duration = Date().timeIntervalSince(start)
             
             if duration >= 0.3 {
-                let tabBarController = ByeBooTabBar()
-                
-                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
-                    let haptick = UINotificationFeedbackGenerator()
-                    haptick.notificationOccurred(.success)
-                    
-                    ViewControllerUtils.setRootViewController(
-                        window: window,
-                        viewController: tabBarController,
-                        withAnimation: true
-                    )
-                }
+//                let tabBarController = ByeBooTabBar()
+//                
+//                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//                   let window = windowScene.windows.first(where: { $0.isKeyWindow }) {
+//                    let haptick = UINotificationFeedbackGenerator()
+//                    haptick.notificationOccurred(.success)
+//                    
+//                    ViewControllerUtils.setRootViewController(
+//                        window: window,
+//                        viewController: tabBarController,
+//                        withAnimation: true
+//                    )
+//                }
             } else {
                 rootView.revertPressAnimation()
             }

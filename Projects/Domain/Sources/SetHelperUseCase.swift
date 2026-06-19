@@ -7,14 +7,14 @@
 
 import DomainInterface
 
-struct DefaultSetHelperUseCase: SetHelperUseCase {
+public struct DefaultSetHelperUseCase: SetHelperUseCase {
     private let repository: UsersInterface
     
-    init(repository: UsersInterface) {
+    public init(repository: UsersInterface) {
         self.repository = repository
     }
     
-    func execute() {
+    public func execute() {
         repository.setHelperShown()
     }
 }

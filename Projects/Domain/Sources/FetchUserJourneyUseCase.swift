@@ -7,14 +7,14 @@
 
 import DomainInterface
 
-struct DefaultFetchUserJourneyUseCase: FetchUserJourneyUseCase {
+public struct DefaultFetchUserJourneyUseCase: FetchUserJourneyUseCase {
     private let repository: UsersInterface
     
-    init(repository: UsersInterface) {
+    public init(repository: UsersInterface) {
         self.repository = repository
     }
     
-    func execute() async throws -> JourneyEntity {
+    public func execute() async throws -> JourneyEntity {
         return try await repository.fetchJourney()
     }
 }

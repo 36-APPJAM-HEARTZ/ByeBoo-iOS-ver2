@@ -7,15 +7,15 @@
 
 import DomainInterface
 
-struct DefaultFetchQuestStatusUseCase: FetchQuestStatusUseCase {
+public struct DefaultFetchQuestStatusUseCase: FetchQuestStatusUseCase {
     
     private let repository: UsersInterface
     
-    init(repository: UsersInterface) {
+    public init(repository: UsersInterface) {
         self.repository = repository
     }
     
-    func execute() async throws -> UserQuestStatusEntity {
+    public func execute() async throws -> UserQuestStatusEntity {
         return try await repository.fetchQuestStatus()
     }
 }

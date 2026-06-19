@@ -1,4 +1,8 @@
 
 import Foundation
 
-public protocol TutorialFeatureInterfaceable {}
+import PresentationKit
+
+public protocol TutorialCoordinatorProtocol: FinishableProtocol {
+    func showTutorial()
+}

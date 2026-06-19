@@ -7,8 +7,6 @@
 
 import UIKit
 
-import DesignSystem
-
 public extension UIButton {
     
     func setUnderLine() {
@@ -22,24 +20,5 @@ public extension UIButton {
         )
         
         setAttributedTitle(attributedString, for: .normal)
-    }
-
-    func applyByeBooFont(
-        style: FontManager,
-        text: String? = nil,
-        color: UIColor,
-        for state: UIControl.State = .normal
-    ) {
-        let targetText = text ?? title(for: state)
-        guard let targetText = targetText else { return }
-        
-        var attributes = style.attributes
-        
-        attributes[.foregroundColor] = color
-        
-        setAttributedTitle(
-            NSAttributedString(string: targetText, attributes: attributes),
-            for: state
-        )
     }
 }

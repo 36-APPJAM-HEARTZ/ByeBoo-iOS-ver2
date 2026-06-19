@@ -8,13 +8,20 @@
 import UIKit
 
 import PresentationKit
+import HomeFeatureInterface
 
 final class NoticesViewController: BaseViewController {
+    
+    private weak var coordinator: HomeCoordinatorProtocol?
     
     private let isExistNotice: Bool
     private let rootView = NoticesView()
     
-    init(isExistNotice: Bool) {
+    init(
+        coordinator: HomeCoordinatorProtocol,
+        isExistNotice: Bool
+    ) {
+        self.coordinator = coordinator
         self.isExistNotice = isExistNotice
         super.init(nibName: nil, bundle: nil)
     }

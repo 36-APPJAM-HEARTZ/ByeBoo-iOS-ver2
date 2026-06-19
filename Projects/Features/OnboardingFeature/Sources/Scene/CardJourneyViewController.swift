@@ -21,8 +21,11 @@ final class CardJourneyViewController: BaseViewController {
     private let rootView = CardJourneyView()
     private var journeyType: JourneyType = .recording
     
-    init(viewModel: CardJourneyViewModel) {
+    init(
+        viewModel: CardJourneyViewModel
+    ) {
         self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -62,14 +65,15 @@ extension CardJourneyViewController {
     
     @objc
     private func confirmLabelDidTap() {
-        let property = HomeEvents.JourneyTypeProperty(journeyType: journeyType.mixpanelKey)
-        Mixpanel.mainInstance().track(event: HomeEvents.Name.journeyCardComplete, properties: property.dictionary)
-        let userProperty = HomeEvents.UserFirstJourneyTypeProperty(userFirstJourneyType: journeyType.mixpanelKey)
-        Mixpanel.mainInstance().people.set(properties: userProperty.dictionary)
+//        let property = HomeEvents.JourneyTypeProperty(journeyType: journeyType.mixpanelKey)
+//        Mixpanel.mainInstance().track(event: HomeEvents.Name.journeyCardComplete, properties: property.dictionary)
+//        let userProperty = HomeEvents.UserFirstJourneyTypeProperty(userFirstJourneyType: journeyType.mixpanelKey)
+//        Mixpanel.mainInstance().people.set(properties: userProperty.dictionary)
         
-        let viewController = HomeOnboardingViewController()
-        viewController.navigationItem.hidesBackButton = true
-        navigationController?.pushViewController(viewController, animated: false)
+//        let viewController = HomeOnboardingViewController()
+//        viewController.navigationItem.hidesBackButton = true
+//        navigationController?.pushViewController(viewController, animated: false)
+        
     }
 }
 
@@ -88,7 +92,7 @@ extension CardJourneyViewController/*: ToastPresentable, ToastErrorHandler*/ {
                     self?.journeyType = JourneyType.titleToEnum(journey.title) ?? .recording
                 case .failure(let error):
 //                    self?.handleError(error)
-                    print("")
+                    break
                 }
             }
             .store(in: &cancellables)

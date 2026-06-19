@@ -7,27 +7,31 @@
 
 import UIKit
 
-import DesignSystem
-import PresentationKit
+import Then
+import SnapKit
 
-final class SpeechTextBoxView: BaseView {
+public final class SpeechTextBoxView: UIView {
     
     private let image = UIImageView()
     private let titleLabel = UILabel()
     
-    init(
+    public init(
         title: String
     ) {
         self.titleLabel.text = title
         
         super.init(frame: .zero)
+        
+        setStyle()
+        setUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func setStyle() {
+    private func setStyle() {
         image.do {
             $0.image = .speechBubble
             $0.contentMode = .scaleAspectFit
@@ -37,14 +41,12 @@ final class SpeechTextBoxView: BaseView {
         titleLabel.applyByeBooFont(style: .body2M16, color: .primary50)
     }
     
-    override func setUI() {
-        addSubviews(
-            image,
-            titleLabel
-        )
+    private func setUI() {
+        addSubview(image)
+        addSubview(titleLabel)
     }
     
-    override func setLayout() {
+    private func setLayout() {
         image.snp.makeConstraints {
             $0.width.equalTo(327.adjustedW)
             $0.centerX.equalToSuperview()
@@ -58,7 +60,7 @@ final class SpeechTextBoxView: BaseView {
 }
 
 extension SpeechTextBoxView {
-    func updateText(_ text: String, withAnimation: Bool = false) {
+    public func updateText(_ text: String, withAnimation: Bool = false) {
         if withAnimation {
             UIView.transition(with: titleLabel, duration: 1, options: .transitionCrossDissolve) { [weak self] in
                 self?.titleLabel.text = text
