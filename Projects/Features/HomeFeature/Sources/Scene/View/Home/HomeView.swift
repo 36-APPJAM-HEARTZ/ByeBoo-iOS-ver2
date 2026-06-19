@@ -1,0 +1,75 @@
+//
+//  HomeView.swift
+//  ByeBoo-iOS
+//
+//  Created by 최주리 on 7/9/25.
+//
+
+import UIKit
+
+import PresentationKit
+import DesignSystem
+import DomainInterface
+
+final class HomeView: BaseView {
+
+    private let backgroundImageView = UIImageView()
+    private(set) var homeBori = ByeBooLottie.boriHome.makeAnimationView()
+    private(set) var headerView = HomeHeaderView()
+    private let speechBoxView = SpeechTextBoxView(title: "")
+    
+    override func setStyle() {
+        backgroundImageView.do {
+            $0.image = .bgHome
+            $0.contentMode = .scaleAspectFill
+        }
+        
+        homeBori.do {
+            $0.play()
+            $0.loopMode = .loop
+        }
+    }
+
+    override func setUI() {
+        addSubviews(
+            backgroundImageView,
+            homeBori,
+            headerView,
+            speechBoxView
+        )
+    }
+    
+    override func setLayout() {
+        backgroundImageView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        homeBori.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(40.adjustedW)
+            $0.width.equalTo(295.adjustedW)
+            $0.height.equalTo(337.adjustedH)
+            $0.bottom.equalToSuperview().inset(31.adjustedH)
+        }
+        headerView.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
+        }
+        speechBoxView.snp.makeConstraints {
+            $0.bottom.equalTo(homeBori.snp.top).offset(-40.adjustedH)
+            $0.horizontalEdges.equalToSuperview()
+        }
+    }
+}
+
+extension HomeView {
+    func updateOnboardingText(_ text: String, withAnimation: Bool = false) {
+        speechBoxView.updateText(text, withAnimation: withAnimation)
+    }
+    
+    func updateState(_ state: HomeState, _ journeyTitle: String? = nil) {
+        headerView.updateState(state, journeyTitle)
+    }
+    
+    func helperDidTap() {
+        headerView.helperDidTap()
+    }
+}

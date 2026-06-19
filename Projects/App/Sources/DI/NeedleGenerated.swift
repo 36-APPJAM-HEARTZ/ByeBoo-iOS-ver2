@@ -13,6 +13,9 @@ import NeedleFoundation
 import QuestFeature
 import QuestFeatureInterface
 import SplashFeature
+import SplashFeatureInterface
+import TutorialFeature
+import TutorialFeatureInterface
 import UIKit
 
 // swiftlint:disable unused_declaration
@@ -22,6 +25,10 @@ private let needleDependenciesHash : String? = nil
 
 private func parent1(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
     return component.parent
+}
+
+private func parent2(_ component: NeedleFoundation.Scope) -> NeedleFoundation.Scope {
+    return component.parent.parent
 }
 
 // MARK: - Providers
@@ -73,15 +80,32 @@ private func factory58ec266675536a48e110e3b0c44298fc1c149afb(_ component: Needle
     return MyPageDependencyed3a2dbc57f299854a2fProvider()
 }
 private class HomeDependency69aec7ecd6b5263bd0e9Provider: HomeDependency {
-
-
-    init() {
-
+    var fetchCharacterDialogueUseCase: FetchCharacterDialogueUseCase {
+        return appComponent.fetchCharacterDialogueUseCase
+    }
+    var fetchQuestStatusUseCase: FetchQuestStatusUseCase {
+        return appComponent.fetchQuestStatusUseCase
+    }
+    var fetchUserJourneyUseCase: FetchUserJourneyUseCase {
+        return appComponent.fetchUserJourneyUseCase
+    }
+    var getUserNameUseCase: GetUserNameUseCase {
+        return appComponent.getUserNameUseCase
+    }
+    var setHelperUseCase: SetHelperUseCase {
+        return appComponent.setHelperUseCase
+    }
+    var getHelperUseCase: GetHelperUseCase {
+        return appComponent.getHelperUseCase
+    }
+    private let appComponent: AppComponent
+    init(appComponent: AppComponent) {
+        self.appComponent = appComponent
     }
 }
 /// ^->AppComponent->MainTabComponent->HomeComponent
-private func factoryd99ae4afe81775bf7b17e3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
-    return HomeDependency69aec7ecd6b5263bd0e9Provider()
+private func factoryd99ae4afe81775bf7b17b7304b634b3e62c64b3c(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return HomeDependency69aec7ecd6b5263bd0e9Provider(appComponent: parent2(component) as! AppComponent)
 }
 private class QuestDependency802a1d0aa327823b4d70Provider: QuestDependency {
 
@@ -93,6 +117,17 @@ private class QuestDependency802a1d0aa327823b4d70Provider: QuestDependency {
 /// ^->AppComponent->MainTabComponent->QuestComponent
 private func factory86827eb61c66cf97696be3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
     return QuestDependency802a1d0aa327823b4d70Provider()
+}
+private class TutorialDependencyf93f954cbdcba4c8648aProvider: TutorialDependency {
+
+
+    init() {
+
+    }
+}
+/// ^->AppComponent->MainTabComponent->TutorialComponent
+private func factorye6f83c8b0653104f5cbde3b0c44298fc1c149afb(_ component: NeedleFoundation.Scope) -> AnyObject {
+    return TutorialDependencyf93f954cbdcba4c8648aProvider()
 }
 
 #else
@@ -112,6 +147,12 @@ extension AppComponent: NeedleFoundation.Registration {
         localTable["getIsRegisteredUseCase-GetIsRegisteredUseCase"] = { [unowned self] in self.getIsRegisteredUseCase as Any }
         localTable["getUserIDUseCase-GetUserIDUseCase"] = { [unowned self] in self.getUserIDUseCase as Any }
         localTable["socialLoginUseCase-SocialLoginUseCase"] = { [unowned self] in self.socialLoginUseCase as Any }
+        localTable["fetchCharacterDialogueUseCase-FetchCharacterDialogueUseCase"] = { [unowned self] in self.fetchCharacterDialogueUseCase as Any }
+        localTable["fetchQuestStatusUseCase-FetchQuestStatusUseCase"] = { [unowned self] in self.fetchQuestStatusUseCase as Any }
+        localTable["fetchUserJourneyUseCase-FetchUserJourneyUseCase"] = { [unowned self] in self.fetchUserJourneyUseCase as Any }
+        localTable["getHelperUseCase-GetHelperUseCase"] = { [unowned self] in self.getHelperUseCase as Any }
+        localTable["getUserNameUseCase-GetUserNameUseCase"] = { [unowned self] in self.getUserNameUseCase as Any }
+        localTable["setHelperUseCase-SetHelperUseCase"] = { [unowned self] in self.setHelperUseCase as Any }
         localTable["splashComponent-SplashComponent"] = { [unowned self] in self.splashComponent as Any }
         localTable["mainTabComponent-MainTabComponent"] = { [unowned self] in self.mainTabComponent as Any }
     }
@@ -130,6 +171,7 @@ extension MainTabComponent: NeedleFoundation.Registration {
         localTable["homeComponent-HomeComponent"] = { [unowned self] in self.homeComponent as Any }
         localTable["questComponent-QuestComponent"] = { [unowned self] in self.questComponent as Any }
         localTable["mypageComponent-MyPageComponent"] = { [unowned self] in self.mypageComponent as Any }
+        localTable["tutorialComponent-TutorialComponent"] = { [unowned self] in self.tutorialComponent as Any }
     }
 }
 extension MyPageComponent: NeedleFoundation.Registration {
@@ -139,10 +181,20 @@ extension MyPageComponent: NeedleFoundation.Registration {
 }
 extension HomeComponent: NeedleFoundation.Registration {
     public func registerItems() {
-
+        keyPathToName[\HomeDependency.fetchCharacterDialogueUseCase] = "fetchCharacterDialogueUseCase-FetchCharacterDialogueUseCase"
+        keyPathToName[\HomeDependency.fetchQuestStatusUseCase] = "fetchQuestStatusUseCase-FetchQuestStatusUseCase"
+        keyPathToName[\HomeDependency.fetchUserJourneyUseCase] = "fetchUserJourneyUseCase-FetchUserJourneyUseCase"
+        keyPathToName[\HomeDependency.getUserNameUseCase] = "getUserNameUseCase-GetUserNameUseCase"
+        keyPathToName[\HomeDependency.setHelperUseCase] = "setHelperUseCase-SetHelperUseCase"
+        keyPathToName[\HomeDependency.getHelperUseCase] = "getHelperUseCase-GetHelperUseCase"
     }
 }
 extension QuestComponent: NeedleFoundation.Registration {
+    public func registerItems() {
+
+    }
+}
+extension TutorialComponent: NeedleFoundation.Registration {
     public func registerItems() {
 
     }
@@ -167,8 +219,9 @@ private func registerProviderFactory(_ componentPath: String, _ factory: @escapi
     registerProviderFactory("^->AppComponent->SplashComponent", factoryace9f05f51d68f4c0677f47b58f8f304c97af4d5)
     registerProviderFactory("^->AppComponent->MainTabComponent", factory1ab5a747ddf21e1393f9e3b0c44298fc1c149afb)
     registerProviderFactory("^->AppComponent->MainTabComponent->MyPageComponent", factory58ec266675536a48e110e3b0c44298fc1c149afb)
-    registerProviderFactory("^->AppComponent->MainTabComponent->HomeComponent", factoryd99ae4afe81775bf7b17e3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent->HomeComponent", factoryd99ae4afe81775bf7b17b7304b634b3e62c64b3c)
     registerProviderFactory("^->AppComponent->MainTabComponent->QuestComponent", factory86827eb61c66cf97696be3b0c44298fc1c149afb)
+    registerProviderFactory("^->AppComponent->MainTabComponent->TutorialComponent", factorye6f83c8b0653104f5cbde3b0c44298fc1c149afb)
 }
 #endif
 

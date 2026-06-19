@@ -15,6 +15,7 @@ import MainTabFeatureInterface
 import HomeFeature
 import QuestFeature
 import MyPageFeature
+import TutorialFeature
 
 public final class MainTabCoordinator: Coordinator {
     public var childCoordinators: [any Coordinator] = []
@@ -22,7 +23,6 @@ public final class MainTabCoordinator: Coordinator {
     
     private let tabBarController: UITabBarController
     private let component: MainTabComponent
-    
     
     private let homeNav = UINavigationController()
     private let questNav = UINavigationController()
@@ -51,18 +51,50 @@ extension MainTabCoordinator: MainTabCoordinatorProtocol {
         tabBarController.setViewControllers([homeNav, questNav, mypageNav], animated: false)
     }
     
+    public func showTutorial() {
+        guard let navigationController = tabBarController.selectedViewController as? UINavigationController else { return }
+        
+        let coordinator = TutorialCoordinator(
+            navigationController: navigationController,
+            component: component.tutorialComponent
+        )
+        
+        add(child: coordinator)
+        
+        coordinator.finished = { [weak self] in
+            self?.remove(child: coordinator)
+        }
+        
+        coordinator.start()
+    }
+    
+    public func switchTab(to tab: MainTab) {
+        guard let viewControllers = tabBarController.viewControllers,
+              viewControllers.indices.contains(tab.rawValue) else { return }
+        
+        tabBarController.selectedIndex = tab.rawValue
+    }
+    
     private func setHomeNav() {
         let homeCoordinator = HomeCoordinator(
             navigationController: homeNav,
             component: component.homeComponent
         )
         homeNav.tabBarItem = UITabBarItem(title: "홈", image: .homeOff, tag: 0)
-        childCoordinators.append(homeCoordinator)
         
         homeCoordinator.finished = { [weak self] in
             self?.finished?()
         }
         
+        homeCoordinator.showTutorialHandler = { [weak self] in
+            self?.showTutorial()
+        }
+        
+        homeCoordinator.showQuestTabHandler = { [weak self] in
+            self?.switchTab(to: .quest)
+        }
+        
+        childCoordinators.append(homeCoordinator)
         homeCoordinator.start()
     }
     
@@ -95,4 +127,6 @@ extension MainTabCoordinator: MainTabCoordinatorProtocol {
         
         mypageCoordinator.start()
     }
+    
+    
 }

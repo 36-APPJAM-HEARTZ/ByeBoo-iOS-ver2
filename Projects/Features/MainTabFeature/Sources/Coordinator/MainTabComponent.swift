@@ -13,6 +13,7 @@ import DomainInterface
 import HomeFeature
 import QuestFeature
 import MyPageFeature
+import TutorialFeature
 
 public protocol MainTabDependency: Dependency {
 
@@ -32,4 +33,7 @@ public final class MainTabComponent: Component<MainTabDependency> {
         MyPageComponent(parent: self)
     }
     
+    public var tutorialComponent: TutorialComponent {
+        TutorialComponent(parent: self)
+    }
 }

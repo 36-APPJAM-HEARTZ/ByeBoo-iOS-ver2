@@ -26,14 +26,14 @@ public struct DefaultUsersRepository: UsersInterface {
     
     // MARK: Network
     
-//    func fetchJourney() async throws -> JourneyEntity {
-//        let result = try await network.request(
-//            UsersAPI.journey,
-//            decodingType: UserJourneyResponseDTO.self
-//        )
-//        
-//        return result.toEntity()
-//    }
+    public func fetchJourney() async throws -> JourneyEntity {
+        let result = try await network.request(
+            UsersAPI.journey,
+            decodingType: UserJourneyResponseDTO.self
+        )
+        
+        return result.toEntity()
+    }
 //    
 //    func sendUser(
 //        name: String,
@@ -59,47 +59,47 @@ public struct DefaultUsersRepository: UsersInterface {
 //        ByeBooLogger.debug("유저 정보 저장 완료")
 //        return result.toEntity()
 //    }
-//    
-//    func fetchCharacterDialogue() async throws -> DialogueEntity {
-//        let result = try await network.request(
-//            UsersAPI.character,
-//            decodingType: DialogueResponseDTO.self
-//        )
-//        
-//        return result.toEntity()
-//    }
-//    
-//    func fetchQuestStatus() async throws -> UserQuestStatusEntity {
-//        let result = try await network.request(
-//            UsersAPI.count,
-//            decodingType: UserQuestStatusResponseDTO.self
-//        )
-//        
-//        return result.toEntity()
-//    }
-//    
+    
+    public func fetchCharacterDialogue() async throws -> DialogueEntity {
+        let result = try await network.request(
+            UsersAPI.character,
+            decodingType: DialogueResponseDTO.self
+        )
+        
+        return result.toEntity()
+    }
+    
+    public func fetchQuestStatus() async throws -> UserQuestStatusEntity {
+        let result = try await network.request(
+            UsersAPI.count,
+            decodingType: UserQuestStatusResponseDTO.self
+        )
+        
+        return result.toEntity()
+    }
+    
 //    func startJourney() async throws {
 //        try await network.request(UsersAPI.start)
 //    }
 //    
-//    // MARK: Persistence
-//    
-//    func getUserName() -> String? {
-//        userDefaultsService.load(key: .userName)
-//    }
-//    
+    // MARK: Persistence
+    
+    public func getUserName() -> String? {
+        userDefaultsService.load(key: .userName)
+    }
+    
     public func getUserID() -> Int? {
         userDefaultsService.load(key: .userID)
     }
     
-//    func setHelperShown() {
-//        _ = userDefaultsService.save(true, key: .isHelperShown)
-//    }
-//    
-//    func getIsHelperShown() -> Bool? {
-//        return userDefaultsService.load(key: .isHelperShown)
-//    }
-//    
+    public func setHelperShown() {
+        _ = userDefaultsService.save(true, key: .isHelperShown)
+    }
+    
+    public func getIsHelperShown() -> Bool? {
+        return userDefaultsService.load(key: .isHelperShown)
+    }
+    
     public func getIsRegistered() -> Bool {
         return userDefaultsService.load(key: .isRegistered) ?? false
     }

@@ -55,7 +55,6 @@ extension LoginViewModel {
         switch trigger {
         case .socialLoginButtonDidTap(let platform) :
             socialLogin(platform: platform)
-            print("")
         }
     }
 }
