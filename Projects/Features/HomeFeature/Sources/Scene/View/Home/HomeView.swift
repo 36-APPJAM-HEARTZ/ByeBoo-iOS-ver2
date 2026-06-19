@@ -7,8 +7,6 @@
 
 import UIKit
 
-import Lottie
-
 import PresentationKit
 import DesignSystem
 import DomainInterface
@@ -16,7 +14,7 @@ import DomainInterface
 final class HomeView: BaseView {
 
     private let backgroundImageView = UIImageView()
-    private(set) var homeBori = LottieAnimationView(name: "bori_home")
+    private(set) var homeBori = ByeBooLottie.boriHome.makeAnimationView()
     private(set) var headerView = HomeHeaderView()
     private let speechBoxView = SpeechTextBoxView(title: "")
     

@@ -7,8 +7,6 @@
 
 import UIKit
 
-import Lottie
-
 import PresentationKit
 import DesignSystem
 
@@ -18,7 +16,7 @@ final class HomeOnboardingView: BaseView {
     private let backgroundView = UIView()
     private let descriptionLabel = UILabel()
     private let speechBoxView = SpeechTextBoxView(title: "")
-    let characterLottie = LottieAnimationView(name: "bori_newborn")
+    let characterLottie = ByeBooLottie.boriNewborn.makeAnimationView()
     private let foregroundView = UIView()
     
     override func setStyle() {
