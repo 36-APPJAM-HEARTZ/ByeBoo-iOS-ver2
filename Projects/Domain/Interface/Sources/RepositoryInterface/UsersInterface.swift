@@ -8,15 +8,15 @@
 import Foundation
 
 public protocol UsersInterface {
-//    func getUserName() -> String?
+    func getUserName() -> String?
 //    func modifyUserNickname(name: String) async throws -> String
     func getUserID() -> Int?
-//    func setHelperShown()
-//    func getIsHelperShown() -> Bool?
-//    func fetchJourney() async throws -> JourneyEntity
+    func setHelperShown()
+    func getIsHelperShown() -> Bool?
+    func fetchJourney() async throws -> JourneyEntity
 //    func sendUser(name: String, questStyle: String) async throws -> UserEntity
-//    func fetchCharacterDialogue() async throws -> DialogueEntity
-//    func fetchQuestStatus() async throws -> UserQuestStatusEntity
+    func fetchCharacterDialogue() async throws -> DialogueEntity
+    func fetchQuestStatus() async throws -> UserQuestStatusEntity
 //    func startJourney() async throws
     func getIsRegistered() -> Bool
 //    func getLastJourneyType() -> JourneyType
